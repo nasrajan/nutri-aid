@@ -1,1 +1,1 @@
-<?php include_once("HealthCampSPA.html"); ?>
+<?php include_once("Registration_Page.html"); ?>
