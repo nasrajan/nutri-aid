@@ -94,9 +94,18 @@
         body {
             background-color: lightgray;
         }
+        .tales {
+            width: 100%;
+        }
+        .carousel-inner{
+            width:100%;
+            max-height: 400px !important;
+        }
     </style>
     <script type="text/javascript">
-
+        $('.carousel').carousel('cycle',{
+            interval: 1000
+        })
     </script>
 </head>
 
@@ -105,7 +114,11 @@
 <div>
 
     <nav class="navbar navbar-light m-2" style="background-color: #138d75 ;">
-        <span class="navbar-brand mb-0 h1" style="color:white; font-weight: bold; font-size:20px">NutriAid</span>
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="75" height="75" alt="Nutri-aid food recommender">
+            <span class="navbar-brand mb-0 h1" style="color:white; font-weight: bold; font-size:20px">NutriAid</span>
+        </a>
+
         <div class="nav nav-pills mb-0 float-right" id="nav-tab" role="tablist" style="font-weight: 600; color:white">
             <a class="active nav-item text-white" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                aria-controls="nav-home" aria-selected="true">Home</a>
@@ -115,16 +128,45 @@
                aria-controls="nav-search" aria-selected="false">Search</a>
         </div>
     </nav>
-    <div class="container  h-60 w-50 m-auto p-2"
-         style=" background: white; border:solid; border-color: #7F152E; margin-top: 25px;  ">
-
-        <img src="images/background.jpg" style="width: 100%"></img>
-
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="images/raspberry.jpg"  alt="fruit diet, raspberry">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/cereal.jpg" alt="carbohydrate lover diet">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/haribo.jpg" alt="diabetic? no sugar?">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/strawberry.jpg" alt="Fruit diet, healthy">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <div style="color:#A10115; font-weight:bold">
-        <center>Get Food Recommendations based on Your Preferences</center>
-    </div>
-</div>
+    <!--  <div class="container  h-60 w-50 m-auto p-2"
+           style=" background: white; border:solid; border-color: #7F152E; margin-top: 25px;  ">
+
+          <img src="images/background.jpg" style="width: 100%"></img>
+
+      </div>
+      <div style="color:#A10115; font-weight:bold">
+          <center>Get Food Recommendations based on Your Preferences</center>
+      </div>
+</div>-->
 </div>
 
 </body>
