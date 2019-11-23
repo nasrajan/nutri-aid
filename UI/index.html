@@ -120,13 +120,13 @@
         </a>
 
         <div class="nav nav-pills mb-0 float-right" id="nav-tab" role="tablist" style="font-weight: 600; color:white">
-            <a class="active nav-item text-white" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            <a class="active nav-item text-white" id="nav-home-tab" data-toggle="tab" href="#home" role="tab"
                aria-controls="nav-home" aria-selected="true">Home</a>
             <a class="nav-item text-white" id="nav-about-tab" data-toggle="tab" href="#about" role="tab"
                aria-controls="nav-about" aria-selected="false">About</a>
-            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#nav-search" role="tab"
+            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#search" role="tab"
                aria-controls="nav-search" aria-selected="false">Search</a>
-            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="dashboard.html" role="tab"
+            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#dashboard" role="tab"
                aria-controls="nav-search" aria-selected="false">Dashboard</a>
 
         </div>
@@ -160,14 +160,61 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <a name="about"><h2>About</h2></a>
-    <div>
-        We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
-        every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
-        and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
-        dietary requirements. From those answers, we will recommend daily suggestions for you.
+    <div class="tab-content">
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                home
+        </div>
+        <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <div>
+                We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
+                every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
+                and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
+                dietary requirements. From those answers, we will recommend daily suggestions for you.
 
+            </div>
+        </div>
+        <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
+            search
+        </div>
+        <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                        Recommended Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        Statistics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                        My Favorites
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    recommended products
+                </div>
+                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    statistics
+
+                </div>
+                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                    My favprites
+                </div>
+
+            </div>
+        </div>
     </div>
+
+
+
 
 </div>
 
