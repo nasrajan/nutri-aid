@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!--Javascripts: Jquery & BootstrapJS-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+   <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
@@ -105,7 +106,24 @@
     <script type="text/javascript">
         $('.carousel').carousel('cycle',{
             interval: 1000
-        })
+        });
+        var url1 = "http://localhost:5000";
+        $(document).ready(function(){
+
+            $.ajax({
+                url: url1,
+                type: 'get',
+                //  data: JSON.stringify(sendinfo),
+                //  contentType: 'application/json',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+
+
+                }
+            });
+
+        });
     </script>
 </head>
 
@@ -179,7 +197,7 @@
         <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                    <a class="nav-link active" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">
                         Recommended Products
                     </a>
                 </li>
@@ -198,7 +216,7 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
                     recommended products
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
