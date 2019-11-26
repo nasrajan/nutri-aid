@@ -26,4 +26,8 @@ app.get('/data',function (req, res){
   }
    res.end(JSON.stringify(data));
  });
-app.listen(3001);
+//app.listen(3001);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
