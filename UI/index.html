@@ -102,6 +102,9 @@
             width:100%;
             max-height: 400px !important;
         }
+        .alertMessage{
+             color: red; 
+        }
     </style>
     <script type="text/javascript">
         $('.carousel').carousel('cycle',{
@@ -165,6 +168,7 @@
 
         });
     </script>
+    
 </head>
 
 <body>
@@ -182,10 +186,15 @@
                aria-controls="nav-home" aria-selected="true">Home</a>
             <a class="nav-item text-white" id="nav-about-tab" data-toggle="tab" href="#about" role="tab"
                aria-controls="nav-about" aria-selected="false">About</a>
-            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#search" role="tab"
+            <a class="nav-item text-white" id="nav-search-tab" data-toggle="tab" href="#search" role="tab"
                aria-controls="nav-search" aria-selected="false">Search</a>
-            <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#dashboard" role="tab"
-               aria-controls="nav-search" aria-selected="false">Dashboard</a>
+            <a class="nav-item text-white" id="nav-dashboard-tab" data-toggle="tab" href="#dashboard" role="tab"
+               aria-controls="nav-dashboard" aria-selected="false">Dashboard</a>
+            <a class="nav-item text-white" id="nav-signup-tab" data-toggle="modal" data-target="#signupModal" role="modal" 
+              aria-controls="nav-signup"  aria-selected="false">Sign Up</a> 
+            <a class="nav-item text-white" id="nav-signin-tab" data-toggle="modal" data-target="#signinModal" role="modal" 
+              aria-controls="nav-signin"  aria-selected="false" >Sign In</a>
+                 
 
         </div>
     </nav>
@@ -279,7 +288,85 @@
                 </div>
 
             </div>
+          
         </div>
+        <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalCenterTitle" aria-hidden="true">
+                <div  style="width:375px" class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="signupModal" style="color:#138d75">Sign Up</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                            <form action="javascript:signup();"> 
+                                   <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Name </span><br>
+                                    <input type="text" id="nameInput" size="35" required style="margin-top:10px"> <br><br></div>
+                                   
+                                   <div> <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
+                                    <input type="email" id="emailInput" size="35" required oninput="document.getElementById('alertMessage').innerHTML=''" style="margin-top:10px"><br><br></div>
+                                    
+                                    <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>                     
+                                    <input type="password" id="passwordInput" size="35"required oninput="checkPassword()" style="margin-top:10px" onfocus="document.getElementById('password_constraints').style.setProperty('display', 'block')" onblur="document.getElementById('password_constraints').style.setProperty('display', 'none')"><br><br></div>
+                                   
+                                    <div style="margin-left:50px; border-radius: 10px; border: solid 2px; border-color: #138d75; background-color: white; padding:10px; position: absolute; width: 335px; display:none" id="password_constraints">
+                                      
+                                        <p>Strength: <progress id="security-value" max="6" value="0" > </progress><span id="security-message"></span> <br>                         
+                                          <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Be Atleast 8 Characters<span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lengthConstraint" ></span></span><br> 
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Uppercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="uppercaseConstraint"></span></span> <br> 
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Lowercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lowercaseConstraint"></span></span><br>  
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Number <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="numberConstraint" </span></span><br> 
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Only Use A-z, 0-9, @, -, _, and .  <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="characterConstraint"></span></span><br> 
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Not Be Same As Email<span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="emailConstraint"></span><br> 
+                    
+                                                    </div>
+                                            
+                                    <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Confirm Password </span><br>
+                                    <input type="password" id="confirmPasswordInput" size="35" required style="margin-top:10px"  oninput="confirmPassword()"> <br><br>
+                                    <p id="matchPassword" ></p>
+              
+                                    <button type="submit" id="submitbutton" class="btn" style="background-color: #138d75 ;color:white ; border-color:#A10115; margin-left: 35%; " >Sign Up</button>  
+                                    
+                                    <p class="alertMessage" id="alertMessage" style="margin-left:14%"></p>
+<!--                                     <p style="margin-left:9%">Already Have an Account?<a href="#signinModal"> SignIn Here</a></p>
+ -->                                  </form>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="signinModalCenterTitle" aria-hidden="true">
+                    <div  style="width:375px" class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="signinModal" style="color:#138d75">Sign In</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                                <form  action="javascript:signin();" > 
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
+                                        <input type="email" id="signinEmailInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
+                  
+                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>
+                                        <input type="password" id="signinPasswordInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
+                                      
+                                        <button type="submit" id="signinSubmitButton" class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 ">Sign In</button>
+                            
+                                         <p class="alertMessage" id="signinAlertMessage" style="margin-left:4%"> </p>
+                               
+                                        <a href="" style="margin-left:30%" >Forgot Password?</a><br>
+                  
+<!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
+ -->                            </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
     </div>
 
 
@@ -289,5 +376,163 @@
 
 
 </body>
+<script>
+        function checkPassword(){
+          var password = document.getElementById("passwordInput").value;
+          var email = document.getElementById('emailInput').value;
+          var secure = 0;
+          if(password.length>=8)
+          {
+            document.getElementById('lengthConstraint').innerHTML = ' &#10004';
+            secure++;
+          }
+          else
+          {
+            document.getElementById('lengthConstraint').innerHTML = '';
+          }
+          if(password!=email)
+          {
+            document.getElementById('emailConstraint').innerHTML = ' &#10004';
+            secure++;
+          }
+          else
+          {
+            document.getElementById('emailConstraint').innerHTML = '';
+          }
+        
+          if(password.match(/[0-9]/))
+          {
+              document.getElementById('numberConstraint').innerHTML = ' &#10004';
+              secure++;
+          }
+          else
+          {
+              document.getElementById('numberConstraint').innerHTML = '';
+          }
+          if(password.match(/^[A-Za-z0-9@_.-]+$/))
+            {  
+                document.getElementById('characterConstraint').innerHTML = ' &#10004';
+                secure++;
+            }
+            else
+            {
+              document.getElementById('characterConstraint').innerHTML = '';
+            }
+            if(password.match(/[A-Z]/))
+            {
+              document.getElementById('uppercaseConstraint').innerHTML = ' &#10004';
+              secure++;
+        
+            }
+            else
+            {
+              document.getElementById('uppercaseConstraint').innerHTML = '';
+            }
+            if(password.match(/[a-z]/))
+            {
+              document.getElementById('lowercaseConstraint').innerHTML = ' &#10004';
+              secure++;
+        
+            }
+            else
+            {
+              document.getElementById('lowercaseConstraint').innerHTML = '';
+            }
+        
+            if(password.length==0)
+              {
+                document.getElementById('security-message').innerHTML = '';
+                secure = 0;
+              }
+            else if (secure<=3)
+            {
+              document.getElementById('security-message').innerHTML = 'Weak';
+              document.getElementById('security-message').style.color = "red";
+          
+            }  
+            else
+            {
+              document.getElementById('security-message').innerHTML = 'Strong';
+              document.getElementById('security-message').style.color = 'green';
+        
+            }
+            console.log(document.getElementById('security-value').value);
+            document.getElementById('security-value').value = secure;
+           
+        
+         
+        }
+        
+        function confirmPassword()
+        {
+          var password = document.getElementById('passwordInput').value;
+          var confirmPassword = document.getElementById('confirmPasswordInput').value;
+          if(password!=confirmPassword)
+          {
+            document.getElementById("matchPassword").innerHTML = "Passwords Do Not Match";
+            document.getElementById("matchPassword").style.color= "red";
+            document.getElementById("matchPassword").style.marginLeft= "20%";
+            
+          }
+          else  
+          {
+            document.getElementById("matchPassword").innerHTML = "Passwords Match";
+            document.getElementById("matchPassword").style.color= "green";
+            document.getElementById("matchPassword").style.marginLeft= "29%";
+          }
+        }
+        
+        function signup() 
+      {
+        const data = {
+          'name' : document.getElementById('nameInput').value,
+          'email' : document.getElementById('emailInput').value,
+          'password' : document.getElementById('passwordInput').value
+        }
+        $.ajax({
+          url: "http://localhost:3001/signup",
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function(res){
+            const response = JSON.parse(res);
+            if(response.authenticated == 'true')
+                {
+                  sessionStorage.setItem('user', data.email);
+                  window.location = "index.html";
+                }
+            else if(response.authenticated == 'emailError')
+               {
+                 document.getElementById('alertMessage').innerHTML = "Account With Email Already Exists." ;
+               }
+        }})
+    }
 
+    function signin(){
+      const data = {
+          'email' : document.getElementById('signinEmailInput').value,
+          'password' : document.getElementById('signinPasswordInput').value
+        }
+        $.ajax({
+          url: "http://localhost:3001/signin",
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function(res){
+           const response = JSON.parse(res);
+           
+            if(response.authenticated)
+                {
+                  sessionStorage.setItem('user', data.email);
+                  window.location = "index.html";
+                }
+            else
+            {
+              document.getElementById('signinAlertMessage').innerHTML = "Incorrect Email or Password. Please Try Again." ;
+            }    
+            
+        }})
+      }
+
+        </script>
 </html>
