@@ -125,11 +125,24 @@
                                          .append($('<div>').addClass("d-flex w-100 justify-content-between")
                                                             .append(
                                                                  $('<h5>').text(val["Food Name"]),
-                                                                 $('<small>').text("3 days ago")
+                                                               //  $('<small>').text("3 days ago")
 
                                                              ),
-                                                    $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
-                                                    $('<small>').text("Donec id elit non mi porta.")
+                                                  //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
+                                                       $('<ul>').addClass("mb-1").append(
+                                                            $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
+                                                           $('<li>').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
+                                                           $('<li>').text("Starch (g): " + val["Starch (g)"]),
+                                                           $('<li>').text("Glucose (g):" + val["Glucose (g)"]),
+                                                           $('<li>').text("Cholesterol (mg):" + val["Cholesterol (mg)"]),
+                                                           $('<li>').text("Fat (g):" + val["Fat (g)"]),
+                                                           $('<li>').text("Calcium (mg): " + val["Calcium (mg)"]),
+                                                           $('<li>').text("Iron (mg):" + val["Iron (mg)"]),
+                                                           $('<li>').text("Protein (g):" + val["Protein (g)"]),
+                                                           $('<li>').text("Water (g):" + val["Water (g)"]),
+
+                                                       ),
+
 
                         );
                        /* var $a = ' <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">\n' +
