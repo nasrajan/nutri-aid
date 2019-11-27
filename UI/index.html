@@ -118,7 +118,34 @@
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
+                    $.each(data, function(index, val) {
+                        console.log();
 
+                        var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
+                                         .append($('<div>').addClass("d-flex w-100 justify-content-between")
+                                                            .append(
+                                                                 $('<h5>').text(val["Food Name"]),
+                                                                 $('<small>').text("3 days ago")
+
+                                                             ),
+                                                    $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
+                                                    $('<small>').text("Donec id elit non mi porta.")
+
+                        );
+                       /* var $a = ' <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">\n' +
+                            '                            <div class="d-flex w-100 justify-content-between">\n' +
+                            '                                <h5 class="mb-1">' + val["Food Name"] + '</h5>\n' +
+                            '                                <small>3 days ago</small>\n' +
+                            '                            </div>\n' +
+                            '                            <p class="mb-1">' +
+
+                            '                                </p>\n' +
+                            '                            <small>Donec id elit non mi porta.</small>\n' +
+                            '                        </a>';
+                        */
+                    $('#dashboard_recommend').append($a);
+
+                    });
 
                 }
             });
@@ -217,7 +244,18 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
-                    recommended products
+                    <div class="list-group" id="dashboard_recommend">
+                       <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small>3 days ago</small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small>Donec id elit non mi porta.</small>
+                        </a> -->
+
+                    </div>
+
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     statistics
