@@ -122,7 +122,8 @@
                 success: function (data) {
                     console.log(data);
                     $.each(data, function(index, val) {
-                        console.log();
+                        var fname = val["Food Name"].split(" ")[0].replace(',', '')
+                        console.log(fname);
 
                         var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
                                          .append($('<div>').addClass("d-flex w-100 justify-content-between")
@@ -131,6 +132,7 @@
                                                                //  $('<small>').text("3 days ago")
 
                                                              ),
+                                                  $('<img>').attr("src",'../module_ml/images/' + fname + '.jpg'),
                                                   //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
                                                        $('<ul>').addClass("mb-1").append(
                                                             $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
