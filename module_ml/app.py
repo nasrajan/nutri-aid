@@ -18,7 +18,6 @@ def hello_world():
     vals = prediction[1][0][:10]
 
     res = df.iloc[vals].to_json(orient='records')
-    #print(prediction)
     return res
 
 if __name__ == '__main__':

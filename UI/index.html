@@ -11,6 +11,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <!--Javascripts: Jquery & BootstrapJS-->
    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -22,205 +23,13 @@
     <title>Nutri-Aid :: Find the right foods for you</title>
 
     <style>
-        .vertical-separator {
-            width: 2px;
-            background-color: hsl(184, 100%, 60%);
-            height: inherit;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
 
-
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 20px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        .slider:hover {
-            opacity: 1;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-width: 1px;
-            border-color: #7F152E;
-            background: #A10115;
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-width: 1px;
-            border-color: #7F152E;
-            background: #A10115;
-            cursor: pointer;
-        }
-
-        label {
-            color: #A10115;
-            font-weight: bold;
-        }
-
-        .navbar a.active {
-            border-top: solid 3px;
-            border-bottom: solid 3px;
-            border-color: #A10115;
-
-            color: white;
-
-        }
-
-        .nav-item {
-            padding: 8px 15px;
-        }
-
-        .navbar a:hover {
-            border-top: solid 3px;
-            border-bottom: solid 3px;
-            border-color: #F0EFEA;
-
-            color: white;
-        }
-
-        body {
-            background-color: lightgray;
-        }
-        .tales {
-            width: 100%;
-        }
-        .carousel-inner{
-            width:100%;
-            max-height: 400px !important;
-        }
-        .alertMessage{
-             color: red; 
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            background-color: #138d75;
-        }
-
-        table th {
-            background-color: black;
-            color: white;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
     </style>
-    <script type="text/javascript">
-        $('.carousel').carousel('cycle',{
-            interval: 1000
-        });
-        var url1 = "https://nutriaid-python.herokuapp.com/";
-        $(document).ready(function(){
 
-            $.ajax({
-                url: url1,
-                type: 'get',
-                //  data: JSON.stringify(sendinfo),
-                //  contentType: 'application/json',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    $.each(data, function(index, val) {
-                        var fname = val["Food Name"].split(" ")[0].replace(',', '')
-                        console.log(fname);
-
-                        var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
-                                         .append($('<div>').addClass("d-flex w-100 justify-content-between")
-                                                            .append(
-                                                                 $('<h5>').text(val["Food Name"]),
-                                                               //  $('<small>').text("3 days ago")
-
-                                                             ),
-                                                  $('<img>').attr("src",'images/thumbs/' + fname + '.jpg'),
-                                                  //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
-                                                       $('<ul>').addClass("mb-1").append(
-                                                            $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
-                                                           $('<li>').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
-                                                           $('<li>').text("Starch (g): " + val["Starch (g)"]),
-                                                           $('<li>').text("Glucose (g):" + val["Glucose (g)"]),
-                                                           $('<li>').text("Cholesterol (mg):" + val["Cholesterol (mg)"]),
-                                                           $('<li>').text("Fat (g):" + val["Fat (g)"]),
-                                                           $('<li>').text("Calcium (mg): " + val["Calcium (mg)"]),
-                                                           $('<li>').text("Iron (mg):" + val["Iron (mg)"]),
-                                                           $('<li>').text("Protein (g):" + val["Protein (g)"]),
-                                                           $('<li>').text("Water (g):" + val["Water (g)"]),
-
-                                                       )
-
-
-                        );
-                       /* var $a = ' <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">\n' +
-                            '                            <div class="d-flex w-100 justify-content-between">\n' +
-                            '                                <h5 class="mb-1">' + val["Food Name"] + '</h5>\n' +
-                            '                                <small>3 days ago</small>\n' +
-                            '                            </div>\n' +
-                            '                            <p class="mb-1">' +
-
-                            '                                </p>\n' +
-                            '                            <small>Donec id elit non mi porta.</small>\n' +
-                            '                        </a>';
-                        */
-                    $('#dashboard_recommend').append($a);
-
-                    });
-
-                }
-            });
-
-        });
-
-    </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
     <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Nutrients', 'Energy (in calories)'],
-                ['Energy', 13], ['Carbohydrates', 83], ['Starch', 1.4],
-                ['Fat', 2.3], ['Glucose', 46], ['Cholestrol', 300],
-                ['Calcium', 300],['Protein', 300],['Iron', 300],['Water', 300]
-            ]);
 
-            var options = {
-                title: 'Nutrients % in Diet',
-                width:1000,
-                height:500,
-                legend: 'none',
-                pieSliceText: 'label',
-                slices: {  4: {offset: 0.2},
-                    12: {offset: 0.3},
-                    14: {offset: 0.4},
-                    15: {offset: 0.5},
-                },
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
     </script>
     
 </head>
@@ -243,9 +52,18 @@
                aria-controls="nav-dashboard" aria-selected="false">Dashboard</a>
             <a class="nav-item text-white" id="nav-initialsurvey-tab" data-toggle="modal" data-target="#initialsurveyModal" role="modal"
                aria-controls="nav-initialsurvey"  aria-selected="false" >Initial Survey</a>
+            <a class="nav-item text-white" id="nav-signup-tab" data-toggle="modal" data-target="#signupModal" role="modal"
+               aria-controls="nav-signup"  aria-selected="false">Sign Up</a>
+            <a class="nav-item text-white" id="nav-signin-tab" data-toggle="modal" data-target="#signinModal" role="modal"
+               aria-controls="nav-signin"  aria-selected="false" >Sign In</a>
+            <div class="search-container">
+                <label for="searchInput"></label><input type="text" placeholder="Search" name="search" id="searchInput">
+                <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#search" role="tab"
+                   aria-controls="nav-search" aria-selected="false"><i class="fa fa-search" onclick="search()"></i></a>
+            </div>
         </div>
 
-        <div class="nav nav-pills mb-0 float-right" id="nav-tab" role="tablist";style="font-weight: 600;background-color: #138d75 ; color:white">
+        <!-- <div class="nav nav-pills mb-0 float-right" id="nav-tab" role="tablist";style="font-weight: 600;background-color: #138d75 ; color:white">
             <a class="nav-item text-white" id="nav-signup-tab" data-toggle="modal" data-target="#signupModal" role="modal"
               aria-controls="nav-signup"  aria-selected="false">Sign Up</a>
             <a class="nav-item text-white" id="nav-signin-tab" data-toggle="modal" data-target="#signinModal" role="modal"
@@ -256,8 +74,9 @@
                aria-controls="nav-search" aria-selected="false"><i class="fa fa-search" onclick="search()"></i></a>
             </div>    
 
-        </div>
+        </div>-->
     </nav>
+
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -287,79 +106,85 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
-            Welcome!! Nutri-Aid is a cost-effective platform for helping individuals with their daily dietary needs.
-            You can customize and choose what suits you best. Your personalized nutrition recommender is just few clicks away.
-        </p>
-    </div>
-    <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
-        <div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
-                We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
-                every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
-                and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
-                dietary requirements. From those answers, we will recommend daily suggestions for you.
+                Welcome!! Nutri-Aid is a cost-effective platform for helping individuals with their daily dietary needs.
+                You can customize and choose what suits you best. Your personalized nutrition recommender is just few clicks away.
             </p>
         </div>
-    </div>
-    <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
-        <table id="searchResults">
-            <th>Name</th>
-            <th>Protein</th>
-            <th>Fat</th>
-            <th>Carbohydrates</th>
-            <th>Sugar</th>
-        </table>
-    </div>
-    <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">
-                    Recommended Products
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                    Statistics
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
-                    My Favorites
-                </a>
-            </li>
+        <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <div>
+                <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
+                    We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
+                    every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
+                    and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
+                    dietary requirements. From those answers, we will recommend daily suggestions for you.
+                </p>
+            </div>
+        </div>
+        <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">
+                        Recommended Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        Statistics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                        My Favorites
+                    </a>
+                </li>
 
-        </ul>
+            </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
-                <div class="list-group" id="dashboard_recommend">
-                    <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                         <div class="d-flex w-100 justify-content-between">
-                             <h5 class="mb-1">List group item heading</h5>
-                             <small>3 days ago</small>
-                         </div>
-                         <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                         <small>Donec id elit non mi porta.</small>
-                     </a> -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
+                    <div class="list-group" id="dashboard_recommend">
+                        <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                             <div class="d-flex w-100 justify-content-between">
+                                 <h5 class="mb-1">List group item heading</h5>
+                                 <small>3 days ago</small>
+                             </div>
+                             <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                             <small>Donec id elit non mi porta.</small>
+                         </a> -->
 
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div id="piechart" style="width: 1200px; height: 700px;"></div>
+
+                </div>
+                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                    My favorites
                 </div>
 
             </div>
-            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                <div id="piechart" style="width: 1200px; height: 700px;"></div>
-
-            </div>
-            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
-                My favorites
-            </div>
 
         </div>
-
+        <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
+            <table id="searchResults">
+                <th>Name</th>
+                <th>Protein</th>
+                <th>Fat</th>
+                <th>Carbohydrates</th>
+                <th>Sugar</th>
+            </table>
+        </div>
     </div>
+
+
+    <!-- -->
+
     <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalCenterTitle" aria-hidden="true">
         <div  style="width:365px" class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
