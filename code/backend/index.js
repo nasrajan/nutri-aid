@@ -77,14 +77,28 @@ app.post('/signin',function (req, res){
 });
 
 
-app.get('/data',function (req, res){
+app.post('/search',function (req, res){
   console.log(req.body);
-  console.log('data get request');
-  const data = {
-    'random' : 'randomData'
-  }
-   res.end(JSON.stringify(data));
- });
+  database.getConnection(function(error){
+    if(error)
+      {
+        console.log(error);
+        return;
+      }
+      var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
+      console.log(sql)
+      database.query(sql, function (error, response) {
+        if (error) 
+          console.log(error);
+        console.log(response);
+      res.end(JSON.stringify(response));
+      });
+    }
+  )
+  
+});
+
+
 //app.listen(3001);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

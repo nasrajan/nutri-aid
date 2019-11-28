@@ -132,7 +132,7 @@
 
                                                              ),
                                                   //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
-                                                       $('<ul>').addClass("mb-1").append(``
+                                                       $('<ul>').addClass("mb-1").append(
                                                             $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
                                                            $('<li>').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
                                                            $('<li>').text("Starch (g): " + val["Starch (g)"]),
@@ -195,9 +195,9 @@
             <a class="nav-item text-white" id="nav-signin-tab" data-toggle="modal" data-target="#signinModal" role="modal"
               aria-controls="nav-signin"  aria-selected="false" >Sign In</a>
             <div class="search-container">
-                <input type="text" placeholder="Search.." name="search">
+                <input type="text" placeholder="Search" name="search" id="searchInput">
                 <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#search" role="tab"
-               aria-controls="nav-search" aria-selected="false"><i class="fa fa-search"></i></a>
+               aria-controls="nav-search" aria-selected="false"><i class="fa fa-search" onclick="search()"></i></a>
             </div>    
 
         </div>
@@ -249,7 +249,13 @@
             </div>
         </div>
         <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
-            search
+            <table id="searchResults">
+              <th>Name</th>            
+              <th>Protein</th>
+              <th>Fat</th>
+              <th>Carbohydrates</th>
+              <th>Sugar</th>
+            </table>
         </div>
         <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -586,6 +592,31 @@
             
         }})
       }
+
+      function search()
+      {
+        console.log('search');
+        const data = {
+          'search' : document.getElementById('searchInput').value,
+        }
+       
+        $.ajax({
+          url: "http://localhost:3001/search",
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function(res){
+           const response = JSON.parse(res);
+           console.log(response);
+           $(document).ready(function(){
+           for(var i = 0; i<response.length; i++)
+           {
+             $('#searchResults').append('<tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</td></tr>');
+           }
+          })
+        }})
+      }
+   
 
         </script>
 </html>
