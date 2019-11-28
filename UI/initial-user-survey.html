@@ -78,13 +78,17 @@ body{
 }
     </style>
     <script type="text/javascript">
-       
+
+       function Clear(){
+           document.getElementsByClassName("slider").value=50;
+       }
     </script>
 </head>
 
 <body>
     
     <div >
+
         
         <nav class="navbar navbar-light m-2" style="background-color:#138d75  ;" >
             <span class="navbar-brand mb-0 h1" style="color:white; font-weight: bold; font-size:20px" >NutriAid</span>
@@ -102,14 +106,13 @@ body{
             <div style="color:#A10115"> 
                    <center>Tell us more about your preferences!</center>
             </div>
-         
-            
+
             <div >
                 <form  id="surveyForm" action="home.html"> 
                     <div class ="row" style="margin-top: 20px;">
                             <div class="col-md-2 form-group" ></div>
                             <div class="col-md-4 form-group" >                
-                                    <center>   <label for="carbohydratesRange">Carbohydrates</label>   <img src= "carbohydrates.png" style="width: 25px"></img></center>
+                                    <center>   <label for="carbohydratesRange">Carbohydrates</label>   <img src= "images/carbohydrates.png" style="width: 25px"></img></center>
                              
                                         </div>
                             <div class="col-md-4 form-group" >    
@@ -120,7 +123,7 @@ body{
                     <div class ="row"  >  
                         <div class="col-md-2 form-group" ></div>  
                         <div class="col-md-4 form-group" >                 
-                            <center><label for="proteinRange">Protein</label>    <img src= "protein.png" style="width: 25px"></img></center>
+                            <center><label for="proteinRange">Protein</label>    <img src= "images/protein.png" style="width: 25px"></img></center>
                         </div>
                         <div class="col-md-4 form-group">    
                             <input type="range" min="1" max="100" value="50" class="slider" id="proteinRange">
@@ -130,7 +133,7 @@ body{
                     <div class ="row"> 
                        <div class="col-md-2 form-group"></div>  
                        <div class="col-md-4 form-group">         
-                        <center>  <label for="fatRange">Fat</label>       <img src= "fat.png" style="width: 25px"></img></center>  
+                        <center>  <label for="fatRange">Fat</label>       <img src= "images/fat.png" style="width: 25px"></img></center>
                        </div>
                        <div class="col-md-4 form-group"> 
                             <input type="range" min="1" max="100" value="50" class="slider" id="fatRange">
@@ -140,7 +143,7 @@ body{
                     <div class ="row"> 
                         <div class="col-md-2 form-group"></div>  
                         <div class="col-md-4 form-group"> 
-                           <center><label for="caloriesRange">Calories</label>       <img src= "calories.png" style="width: 25px"></img></center> 
+                           <center><label for="caloriesRange">Calories</label>       <img src= "images/calories.png" style="width: 25px"></img></center>
                         </div>
                         <div class="col-md-4 form-group"> 
                             <input type="range" min="1" max="100" value="50" class="slider" id="caloriesRange">
@@ -150,13 +153,63 @@ body{
                     <div class ="row"> 
                         <div class="col-md-2 form-group"></div>  
                         <div class="col-md-4 form-group"> 
-                                <center> <label for="sugarRange">Sugar</label>     <img src= "sugar.png" style="width: 25px"></img></center>
+                                <center> <label for="sugarRange">Sugar</label>     <img src= "images/sugar.png" style="width: 25px"></img></center>
                         </div>
                         <div class="col-md-4 form-group"> 
                             <input type="range" min="1" max="100" value="50" class="slider" id="sugarRange">
                         </div>
                         <div class="col-md-2 form-group"></div>
-                    </div> 
+                    </div>
+                    <div class ="row">
+                        <div class="col-md-2 form-group"></div>
+                        <div class="col-md-4 form-group">
+                            <center> <label for="starchRange">Starch</label>     <img src= "images/starch.jpg" style="width: 25px"></img></center>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="starchRange">
+                        </div>
+                        <div class="col-md-2 form-group"></div>
+                    </div>
+                    <div class ="row">
+                        <div class="col-md-2 form-group"></div>
+                        <div class="col-md-4 form-group">
+                            <center> <label for="glucoseRange">Glucose</label>     <img src= "images/glucose.png" style="width: 25px"></img></center>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="glucoseRange">
+                        </div>
+                        <div class="col-md-2 form-group"></div>
+                    </div>
+                    <div class ="row">
+                        <div class="col-md-2 form-group"></div>
+                        <div class="col-md-4 form-group">
+                            <center> <label for="ironRange">Iron</label>     <img src= "images/iron.jpg" style="width: 25px"></img></center>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="ironRange">
+                        </div>
+                        <div class="col-md-2 form-group"></div>
+                    </div>
+                    <div class ="row">
+                        <div class="col-md-2 form-group"></div>
+                        <div class="col-md-4 form-group">
+                            <center> <label for="calciumRange">Calcium</label>     <img src= "images/calcium.jpeg" style="width: 25px"></img></center>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="calciumRange">
+                        </div>
+                        <div class="col-md-2 form-group"></div>
+                    </div>
+                    <div class ="row">
+                        <div class="col-md-2 form-group"></div>
+                        <div class="col-md-4 form-group">
+                            <center> <label for="waterRange">Water</label>     <img src= "images/water.jpg" style="width: 25px"></img></center>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="waterRange">
+                        </div>
+                        <div class="col-md-2 form-group"></div>
+                    </div>
                     <div class ="row"> 
                             <div class="col-md-4 form-group"></div>
                         <div class="col-md-2 form-group">
@@ -166,7 +219,7 @@ body{
                         </div>
                         <div class="col-md-2 form-group ">
                            
-                            <button type="reset" class="btn" style="background-color:#138d75  ; color: white ;border-color:#A10115">Cancel</button>
+                            <button type="reset" class="btn" style="background-color:#138d75  ; color: white ;border-color:#A10115" onclick="Clear()">Cancel</button>
                       
                         </div>
                 </div>
@@ -177,7 +230,21 @@ body{
       <div style="font-size: 10px" ><center>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></center></div>
       <div style="font-size: 10px"><center>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></center></div>
       <div style="font-size: 10px"><center>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></center></div>
-      
+      <script>
+          document.getElementById("submitbutton").onclick= function() {
+              var carbohydrates = document.getElementById("carbohydratesRange").value;
+              var protein = document.getElementById("proteinRange").value;
+              var glucose = document.getElementById("glucoseRange").value;
+              var fat = document.getElementById("fatRange").value;
+              var starch = document.getElementById("starchRange").value;
+              var calories = document.getElementById("caloriesRange").value;
+              var calcium = document.getElementById("calciumRange").value;
+              var iron = document.getElementById("ironRange").value;
+              var sugar = document.getElementById("sugarRange").value;
+              var water = document.getElementById("waterRange").value;
+              console.log(carbohydrates,water,protein,fat,calcium,starch,calories,iron,sugar,glucose);
+          }
+      </script>
 </body>
 
 </html>
