@@ -191,6 +191,7 @@
             });
 
         });
+
     </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -240,6 +241,8 @@
                aria-controls="nav-about" aria-selected="false">About</a>
             <a class="nav-item text-white" id="nav-dashboard-tab" data-toggle="tab" href="#dashboard" role="tab"
                aria-controls="nav-dashboard" aria-selected="false">Dashboard</a>
+            <a class="nav-item text-white" id="nav-initialsurvey-tab" data-toggle="modal" data-target="#initialsurveyModal" role="modal"
+               aria-controls="nav-initialsurvey"  aria-selected="false" >Initial Survey</a>
         </div>
 
         <div class="nav nav-pills mb-0 float-right" id="nav-tab" role="tablist";style="font-weight: 600;background-color: #138d75 ; color:white">
@@ -248,7 +251,7 @@
             <a class="nav-item text-white" id="nav-signin-tab" data-toggle="modal" data-target="#signinModal" role="modal"
               aria-controls="nav-signin"  aria-selected="false" >Sign In</a>
             <div class="search-container">
-                <input type="text" placeholder="Search" name="search" id="searchInput">
+                <label for="searchInput"></label><input type="text" placeholder="Search" name="search" id="searchInput">
                 <a class="nav-item text-white" id="nav-report-tab" data-toggle="tab" href="#search" role="tab"
                aria-controls="nav-search" aria-selected="false"><i class="fa fa-search" onclick="search()"></i></a>
             </div>    
@@ -284,160 +287,290 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div class="tab-content">
-        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
+            Welcome!! Nutri-Aid is a cost-effective platform for helping individuals with their daily dietary needs.
+            You can customize and choose what suits you best. Your personalized nutrition recommender is just few clicks away.
+        </p>
+    </div>
+    <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
+        <div>
             <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
-                Welcome!! Nutri-Aid is a cost-effective platform for helping individuals with their daily dietary needs.
-                You can customize and choose what suits you best. Your personalized nutrition recommender is just few clicks away.
-            </p>
-        </div>
-        <div class="tab-pane" id="about" role="tabpanel" aria-labelledby="about-tab">
-            <div>
-                <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
                 We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
                 every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
                 and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
                 dietary requirements. From those answers, we will recommend daily suggestions for you.
-                </p>
-            </div>
+            </p>
         </div>
-        <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
-            <table id="searchResults">
-              <th>Name</th>            
-              <th>Protein</th>
-              <th>Fat</th>
-              <th>Carbohydrates</th>
-              <th>Sugar</th>
-            </table>
-        </div>
-        <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">
-                        Recommended Products
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                        Statistics
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
-                        My Favorites
-                    </a>
-                </li>
+    </div>
+    <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
+        <table id="searchResults">
+            <th>Name</th>
+            <th>Protein</th>
+            <th>Fat</th>
+            <th>Carbohydrates</th>
+            <th>Sugar</th>
+        </table>
+    </div>
+    <div class="tab-pane" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">
+                    Recommended Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                    Statistics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                    My Favorites
+                </a>
+            </li>
 
-            </ul>
+        </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
-                    <div class="list-group" id="dashboard_recommend">
-                       <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">List group item heading</h5>
-                                <small>3 days ago</small>
-                            </div>
-                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small>Donec id elit non mi porta.</small>
-                        </a> -->
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="rec" role="tabpanel" aria-labelledby="rec-tab">
+                <div class="list-group" id="dashboard_recommend">
+                    <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                         <div class="d-flex w-100 justify-content-between">
+                             <h5 class="mb-1">List group item heading</h5>
+                             <small>3 days ago</small>
+                         </div>
+                         <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                         <small>Donec id elit non mi porta.</small>
+                     </a> -->
 
-                    </div>
-
-                </div>
-                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                    <div id="piechart" style="width: 1200px; height: 700px;"></div>
-
-                </div>
-                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
-                    My favorites
                 </div>
 
             </div>
-          
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                <div id="piechart" style="width: 1200px; height: 700px;"></div>
+
+            </div>
+            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                My favorites
+            </div>
+
         </div>
-        <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalCenterTitle" aria-hidden="true">
-                <div  style="width:365px" class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="signupModal" style="color:#138d75">Sign Up</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+    </div>
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalCenterTitle" aria-hidden="true">
+        <div  style="width:365px" class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModal" style="color:#138d75">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                            <form action="javascript:signup();"> 
-                                   <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Name </span><br>
-                                    <input type="text" id="nameInput" size="35" required style="margin-top:10px"> <br><br></div>
-                                   
-                                   <div> <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
-                                    <input type="email" id="emailInput" size="35" required oninput="document.getElementById('alertMessage').innerHTML=''" style="margin-top:10px"><br><br></div>
-                                    
-                                    <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>                     
-                                    <input type="password" id="passwordInput" size="35"required oninput="checkPassword()" style="margin-top:10px" onfocus="document.getElementById('password_constraints').style.setProperty('display', 'block')" onblur="document.getElementById('password_constraints').style.setProperty('display', 'none')"><br><br></div>
-                                   
-                                    <div style="margin-left:50px; border-radius: 10px; border: solid 2px; border-color: #138d75; background-color: white; padding:10px; position: absolute; width: 335px; display:none" id="password_constraints">
-                                      
-                                        <p>Strength: <progress id="security-value" max="6" value="0" > </progress><span id="security-message"></span> <br>                         
-                                          <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Be Atleast 8 Characters<span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lengthConstraint" ></span></span><br>
-                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Uppercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="uppercaseConstraint"></span></span> <br>
-                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Lowercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lowercaseConstraint"></span></span><br>
-                                            <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Number <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="numberConstraint"</span></span<br>
-                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Only Use A-z, 0-9, @, -, _, and .  <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="characterConstraint"></span></span><br>
-                                            <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Not Be Same As Email<span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="emailConstraint"></span></span><br>
-                                        </p>
-                                                    </div>
-                                            
-                                    <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Confirm Password </span><br>
-                                    <input type="password" id="confirmPasswordInput" size="35" required style="margin-top:10px"  oninput="confirmPassword()"> <br><br>
-                                    <p id="matchPassword" ></p>
-              
-                                    <button type="submit" id="submitbutton" class="btn" style="background-color: #138d75 ;color:white ; border-color:#A10115; margin-left: 35%; " >Sign Up</button>  
-                                    
-                                    <p class="alertMessage" id="alertMessage" style="margin-left:14%"></p>
-<!--                                     <p style="margin-left:9%">Already Have an Account?<a href="#signinModal"> SignIn Here</a></p>
- -->                                  </form>
-                    </div>
-                    
-                  </div>
+                    </button>
                 </div>
-              </div>
+                <div class="modal-body">
+                    <form action="javascript:signup();">
+                        <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Name </span><br>
+                            <input type="text" id="nameInput" size="35" required style="margin-top:10px"> <br><br></div>
 
-              <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="signinModalCenterTitle" aria-hidden="true">
-                    <div  style="width:360px" class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="signinModal" style="color:#138d75">Sign In</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                        <div> <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
+                            <input type="email" id="emailInput" size="35" required oninput="document.getElementById('alertMessage').innerHTML=''" style="margin-top:10px"><br><br></div>
+
+                        <div> <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>
+                            <input type="password" id="passwordInput" size="35"required oninput="checkPassword()" style="margin-top:10px" onfocus="document.getElementById('password_constraints').style.setProperty('display', 'block')" onblur="document.getElementById('password_constraints').style.setProperty('display', 'none')"><br><br></div>
+
+                        <div style="margin-left:50px; border-radius: 10px; border: solid 2px; border-color: #138d75; background-color: white; padding:10px; position: absolute; width: 335px; display:none" id="password_constraints">
+
+                            <p>Strength: <progress id="security-value" max="6" value="0" > </progress><span id="security-message"></span> <br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Be Atleast 8 Characters<span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lengthConstraint" ></span></span><br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Uppercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="uppercaseConstraint"></span></span> <br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" >Must Contain 1 Lowercase Letter <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="lowercaseConstraint"></span></span><br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Number <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="numberConstraint"></span></span><br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Only Use A-z, 0-9, @, -, _, and .  <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="characterConstraint"></span></span><br>
+                                <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Not Be Same As Email<span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;" id="emailConstraint"></span></span><br>
+                            </p>
                         </div>
-                        <div class="modal-body">
-                                <form  action="javascript:signin();" > 
-                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
-                                        <input type="email" id="signinEmailInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
-                  
-                                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>
-                                        <input type="password" id="signinPasswordInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
-                                      
-                                        <button type="submit" id="signinSubmitButton" class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 ">Sign In</button>
-                            
-                                         <p class="alertMessage" id="signinAlertMessage" style="margin-left:4%"> </p>
-                               
-                                        <a href="" style="margin-left:30%" >Forgot Password?</a><br>
-                  
-<!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
- -->                            </form>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
+
+                        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Confirm Password </span><br>
+                        <input type="password" id="confirmPasswordInput" size="35" required style="margin-top:10px"  oninput="confirmPassword()"> <br><br>
+                        <p id="matchPassword" ></p>
+
+                        <button type="submit" id="submitbutton" class="btn" style="background-color: #138d75 ;color:white ; border-color:#A10115; margin-left: 35%; " >Sign Up</button>
+
+                        <p class="alertMessage" id="alertMessage" style="margin-left:14%"></p>
+                        <!--                                     <p style="margin-left:9%">Already Have an Account?<a href="#signinModal"> SignIn Here</a></p>
+                         -->                                  </form>
+                </div>
+
+            </div>
+        </div>
     </div>
 
+    <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="signinModalCenterTitle" aria-hidden="true">
+        <div  style="width:360px" class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signinModal" style="color:#138d75">Sign In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  action="javascript:signin();" >
+                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Email </span><br>
+                        <input type="email" id="signinEmailInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
 
+                        <span  style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>
+                        <input type="password" id="signinPasswordInput" size="35" required style="margin-top:10px" oninput="document.getElementById('alertMessage').innerHTML=''"> <br><br>
+
+                        <button type="submit" id="signinSubmitButton" class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 ">Sign In</button>
+
+                        <p class="alertMessage" id="signinAlertMessage" style="margin-left:4%"> </p>
+
+                        <a href="" style="margin-left:30%" >Forgot Password?</a><br>
+
+                        <!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
+                         -->                            </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="initialsurveyModal" tabindex="-1" role="dialog" aria-labelledby="initialsurveyModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width:900px">
+            <div class="modal-content" style="width: 700px; height: 800px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="initialsurveyModal" style="color:#138d75">Initial Survey</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form  action="#home" >
+                        <div class ="row" style="margin-top: 20px;">
+                            <div class="col-md-2 form-group" ></div>
+                            <div class="col-md-4 form-group" >
+                                <center>   <label for="carbohydratesRange">Carbohydrates</label>   <img src= "images/carbohydrates.png" style="width: 25px"></img></center>
+
+                            </div>
+                            <div class="col-md-4 form-group" >
+                                <input type="range" min="1" max="100" value="50" class="slider" id="carbohydratesRange">
+                            </div>
+                            <div class="col-md-2 form-group" ></div>
+                        </div>
+                        <div class ="row"  >
+                            <div class="col-md-2 form-group" ></div>
+                            <div class="col-md-4 form-group" >
+                                <center><label for="proteinRange">Protein</label>    <img src= "images/protein.png" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="proteinRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center>  <label for="fatRange">Fat</label>       <img src= "images/fat.png" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="fatRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center><label for="caloriesRange">Calories</label>       <img src= "images/calories.png" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="caloriesRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="sugarRange">Sugar</label>     <img src= "images/sugar.png" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="sugarRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="starchRange">Starch</label>     <img src= "images/starch.jpg" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="starchRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="glucoseRange">Glucose</label>     <img src= "images/glucose.png" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="glucoseRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="ironRange">Iron</label>     <img src= "images/iron.jpg" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="ironRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="calciumRange">Calcium</label>     <img src= "images/calcium.jpeg" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="calciumRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-2 form-group"></div>
+                            <div class="col-md-4 form-group">
+                                <center> <label for="waterRange">Water</label>     <img src= "images/water.jpg" style="width: 25px"></img></center>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="waterRange">
+                            </div>
+                            <div class="col-md-2 form-group"></div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-4 form-group"></div>
+                            <div class="col-md-2 form-group">
+
+                                <button type="submit" id="submitbutton" class="btn" style="background-color: #138d75  ;color:white ; border-color:#A10115" data-dismiss="modal">Confirm</button>
+
+                            </div>
+                            <div class="col-md-2 form-group ">
+
+                                <button type="reset" class="btn" style="background-color:#138d75  ; color: white ;border-color:#A10115" onclick="Clear()">Cancel</button>
+
+                            </div>
+                        </div>
+
+                        <!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
+                         -->                            </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -670,6 +803,25 @@
           })
         }})
       }
+
+          document.getElementById("submitbutton").onclick= function() {
+              var carbohydrates = document.getElementById("carbohydratesRange").value;
+              var protein = document.getElementById("proteinRange").value;
+              var glucose = document.getElementById("glucoseRange").value;
+              var fat = document.getElementById("fatRange").value;
+              var starch = document.getElementById("starchRange").value;
+              var calories = document.getElementById("caloriesRange").value;
+              var calcium = document.getElementById("calciumRange").value;
+              var iron = document.getElementById("ironRange").value;
+              var sugar = document.getElementById("sugarRange").value;
+              var water = document.getElementById("waterRange").value;
+              console.log(carbohydrates,water,protein,fat,calcium,starch,calories,iron,sugar,glucose);
+
+          }
+
+        function Clear(){
+            document.getElementsByClassName("slider").value=50;
+        }
    
 
         </script>
