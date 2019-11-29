@@ -103,3 +103,12 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+#searchInput {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    border: solid grey 1px;
+    padding-left: 10px;
+    margin-top: 5px;
+}

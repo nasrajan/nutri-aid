@@ -28,10 +28,10 @@ $(document).ready(function(){
         //  contentType: 'application/json',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             $.each(data, function(index, val) {
                 var fname = val["Food Name"].split(" ")[0].replace(',', '')
-                console.log(fname);
+               // console.log(fname);
 
                 var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
                     .append($('<div>').addClass("d-flex w-100 justify-content-between")
