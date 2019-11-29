@@ -35,6 +35,15 @@
 </head>
 
 <body>
+<div id="google_translate_element" style="text-align: right"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en',includedLanguages: 'en,es,jv,ko,pt,ru,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay: false}, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <div>
 
@@ -110,19 +119,33 @@
     </div>
     <div class="tab-content" id="myTabContent">
         <div aria-labelledby="home-tab" class="tab-pane active" id="home" role="tabpanel">
-            <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
+            <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;margin-left: 30px">
                 Welcome!! Nutri-Aid is a cost-effective platform for helping individuals with their daily dietary needs.
                 You can customize and choose what suits you best. Your personalized nutrition recommender is just few clicks away.
             </p>
         </div>
         <div aria-labelledby="about-tab" class="tab-pane" id="about" role="tabpanel">
-            <div>
-                <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">
-                    We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
-                    every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
-                    and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
-                    dietary requirements. From those answers, we will recommend daily suggestions for you.
-                </p>
+            <div style="background-color: white">
+                    <div>
+                        <h2 style="text-align: center; font-family:Futura,cursive; margin-left: 30px;color:darkcyan;">Why to Choose Nutri-Aid?</h2>
+                    </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <p style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;margin-left: 30px">
+                            We, at Nutri-Aid, care about you and your health. Each person is unique - so is their dietary requirements. Though
+                            every product you buy has nutrition requirements in the backside of the box, it is not easy to read everything
+                            and find the food suitable for you. When you register in our system, you will answer a few simple questions about your
+                            dietary requirements. From those answers, we will recommend daily suggestions for you.
+                        </p>
+                    </div>
+                    <div class="col-sm">
+                        <img src="images/foodnutrition.jpg" alt="about image" width="535" height="282">
+                    </div>
+                </div>
+                <div>
+                    <h6 style="text-align: center;font-family:Futura,cursive; color: black; ">We aid you in your needs!!!</h6>
+                </div>
+
             </div>
         </div>
         <div aria-labelledby="dashboard-tab" class="tab-pane" id="dashboard" role="tabpanel">
@@ -448,7 +471,6 @@
 </footer>
 <!-- Footer -->
 
-</body>
 <script>
         function checkPassword(){
           var password = document.getElementById("passwordInput").value;
@@ -652,7 +674,7 @@
         function Clear(){
             document.getElementsByClassName("slider").value=50;
         }
-   
+
 
         </script>
 </html>
