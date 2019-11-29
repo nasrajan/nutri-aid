@@ -3,6 +3,23 @@ $('.carousel').carousel('cycle',{
 });
 var url1 = "https://nutriaid-python.herokuapp.com/";
 $(document).ready(function(){
+    if (sessionStorage.getItem('user')) {
+        // alert(sessionStorage.getItem('user'));
+        $("#nav-dashboard-tab").show();
+        $("#nav-signout-tab").show();
+        $("#nav-signin-tab").hide();
+
+
+    } else {
+        $("#nav-dashboard-tab").hide();
+        $("#nav-signout-tab").hide();
+        $("#nav-signin-tab").show();
+    }
+
+    $("#nav-signout-tab").click(function(){
+        sessionStorage.clear();
+        window.location = "index.html";
+    });
 
     $.ajax({
         url: url1,
