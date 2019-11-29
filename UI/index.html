@@ -50,8 +50,8 @@
                id="nav-about-tab" role="tab">About</a>
             <a aria-controls="nav-dashboard" aria-selected="false" class="nav-item text-white" data-toggle="tab" href="#dashboard"
                id="nav-dashboard-tab" role="tab">Dashboard</a>
-            <a aria-controls="nav-initialsurvey" aria-selected="false" class="nav-item text-white" data-target="#initialsurveyModal" data-toggle="modal"
-               id="nav-initialsurvey-tab"  role="modal" >Initial Survey</a>
+            <!--<a aria-controls="nav-initialsurvey" aria-selected="false" class="nav-item text-white" data-target="#initialsurveyModal" data-toggle="modal"
+               id="nav-initialsurvey-tab"  role="modal" >Initial Survey</a> -->
             <a aria-controls="nav-signup" aria-selected="false" class="nav-item text-white" data-target="#signupModal" data-toggle="modal"
                id="nav-signup-tab"  role="modal">Sign Up</a>
             <a aria-controls="nav-signin" aria-selected="false" class="nav-item text-white" data-target="#signinModal" data-toggle="modal"
@@ -59,8 +59,9 @@
             <a aria-controls="nav-signout" aria-selected="false" class="nav-item text-white"
                id="nav-signout-tab">Sign Out</a>
             <div class="search-container">
-                <label for="searchInput"></label><input id="searchInput" name="search" placeholder="Search" type="text">
-                <a aria-controls="nav-search" aria-selected="false" class="nav-item text-white" data-toggle="tab" href="#search"
+                <label for="searchInput"></label><input  id="searchInput" name="search" placeholder="Search" type="text">
+
+                <a  aria-controls="nav-search" aria-selected="false" class="nav-item text-white" data-toggle="tab" href="#search"
                    id="nav-report-tab" role="tab"><i class="fa fa-search" onclick="search()"></i></a>
             </div>
         </div>
@@ -450,6 +451,7 @@
 
 </body>
 <script>
+        // var url = "http://localhost:3001/signup";
         function checkPassword(){
           var password = document.getElementById("passwordInput").value;
           var email = document.getElementById('emailInput').value;
@@ -569,6 +571,7 @@
           data: JSON.stringify(data),
           success: function(res){
             const response = JSON.parse(res);
+            console.log(response);
             if(response.authenticated == 'true')
                 {
                   sessionStorage.setItem('user', data.email);
@@ -598,7 +601,13 @@
                 {
                   sessionStorage.setItem('user', data.email);
 
-                  window.location = "index.html";
+                  //window.location = "index.html";
+                    $("#nav-dashboard-tab").show();
+                    $("#nav-signout-tab").show();
+                    $("#nav-signin-tab").hide();
+                    checkPreferences(data.email);
+                    $("#signinModal").modal('hide');
+
                 }
             else
             {
@@ -607,9 +616,32 @@
 
 
             
-        }})
+        }});
+
+
       }
 
+      function checkPreferences(email) {
+          var data1 = {'email': email};
+          console.log(email);
+          $.ajax({
+              url: "http://localhost:3001/getpreferences",
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(data1),
+              success: function(res){
+                  const response = JSON.parse(res);
+                  //
+                  // console.log("success");
+                  console.log(response);
+                  if(response.length ==0) {
+                        $("#initialsurveyModal").modal('show');
+                  }
+
+
+
+              }});
+      }
       function search()
       {
         //console.log('search');

@@ -98,6 +98,29 @@ app.post('/search',function (req, res){
   
 });
 
+app.post('/getpreferences',function (req, res){
+  console.log(req.body);
+  database.getConnection(function(error){
+        if(error)
+        {
+          console.log(error);
+          return;
+        }
+        var sql = "SELECT * FROM login, users_diet_preferences\n" +
+            "\tWHERE login.id=users_diet_preferences.users_id AND login.email='" + req.body.email + "'";
+       // var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
+        console.log(sql);
+        database.query(sql, function (error, response) {
+          if (error)
+            console.log(error);
+          console.log(JSON.stringify(response));
+          res.end(JSON.stringify(response));
+        });
+      }
+  )
+
+});
+
 
 //app.listen(3001);
 const PORT = process.env.PORT || 3001;
