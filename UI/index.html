@@ -42,7 +42,7 @@
     }
 </script>
 
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <div>
 
@@ -70,7 +70,7 @@
                 <label for="searchInput"></label><input  id="searchInput" name="search" placeholder="Search" type="text">
 
                 <a  aria-controls="nav-search" aria-selected="false" class="nav-item text-white" data-toggle="tab" href="#search"
-                   id="nav-report-tab" role="tab"><i class="fa fa-search" onclick="search()"></i></a>
+                   id="nav-report-tab" role="tab"><i class="fa fa-search" id="searchInputbutton" onclick="search()"></i></a>
             </div>
         </div>
 
@@ -210,11 +210,13 @@
         </div>
         <div aria-labelledby="search-tab" class="tab-pane" id="search" role="tabpanel">
             <table id="searchResults">
-                <th>Name</th>
-                <th>Protein</th>
-                <th>Fat</th>
-                <th>Carbohydrates</th>
-                <th>Sugar</th>
+                <thead>
+                    <th>Name</th>
+                    <th>Protein</th>
+                    <th>Fat</th>
+                    <th>Carbohydrates</th>
+                    <th>Sugar</th>
+                </thead>
             </table>
         </div>
     </div>
@@ -691,6 +693,7 @@
       function search()
       {
         //console.log('search');
+          $('#searchResults tbody').empty();
         const data = {
           'search' : document.getElementById('searchInput').value,
         }
@@ -706,7 +709,7 @@
            $(document).ready(function(){
                for(var i = 0; i<response.length; i++)
                {
-                 $('#searchResults').append('<tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</td></tr>');
+                 $('#searchResults').append('<tbody></tbody><tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</tbody></td></tr>');
                }
           })
         }})
@@ -728,8 +731,23 @@
           }
 
         function Clear(){
-            document.getElementsByClassName("slider").value=50;
+            document.getElementsByClassName("slider").value=0;
         }
 
+
+        var input = document.getElementById("searchInput");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("searchInputbutton").click();
+            }
+        });
+
         </script>
+</body>
 </html>
