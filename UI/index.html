@@ -23,13 +23,12 @@
     <title>Nutri-Aid :: Find the right foods for you</title>
 
     <style>
-
+        .modal { overflow: auto !important; }
     </style>
 
     <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
     <script src="js/dashboard.js" type="text/javascript"></script>
     <script type="text/javascript">
-
     </script>
     
 </head>
@@ -302,10 +301,10 @@
     </div>
 
     <div aria-hidden="true" aria-labelledby="initialsurveyModalCenterTitle" class="modal fade" id="initialsurveyModal" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="width:900px">
-            <div class="modal-content" style="width: 700px; height: 800px;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="width:1000px">
+            <div class="modal-content" style="width: 1000px; height: 900px;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="initialsurveyModal" style="color:#138d75">Initial Survey</h5>
+                    <h5 class="modal-title" id="initialsurveyModalId" style="color:#138d75">Initial Survey</h5>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -319,7 +318,10 @@
 
                             </div>
                             <div class="col-md-4 form-group" >
-                                <input class="slider" id="carbohydratesRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="carbohydratesRange" max="100" min="0" type="range" value="0" oninput="this.form.carbohydratesAmount.value=this.value">
+                                <input id="carbohydratesAmount" max="100" min="0" oninput="this.form.carbohydratesRange.value=this.value" placeholder="0-100" type="number"
+                                       value="0" style="width: 5em">
+                                <span class="validity"></span>
                             </div>
                             <div class="col-md-2 form-group" ></div>
                         </div>
@@ -329,7 +331,8 @@
                                 <center><label for="proteinRange">Protein</label>    <img src= "images/protein.png" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="proteinRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="proteinRange" max="100" min="0" type="range" value="0" oninput="this.form.proteinAmount.value=this.value">
+                                <input type="number" id="proteinAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.proteinRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -339,7 +342,8 @@
                                 <center>  <label for="fatRange">Fat</label>       <img src= "images/fat.png" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="fatRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="fatRange" max="2000" min="0" type="range" value="0" oninput="this.form.fatAmount.value=this.value">
+                                <input type="number" id="fatAmount" max="2000" min="0" value="0" placeholder="0-2000" oninput="this.form.fatRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -349,7 +353,8 @@
                                 <center><label for="caloriesRange">Calories</label>       <img src= "images/calories.png" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="caloriesRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="caloriesRange" max="1000" min="0" type="range" value="0" oninput="this.form.caloriesAmount.value=this.value">
+                                <input type="number" id="caloriesAmount" max="1000" min="0" value="0" placeholder="0-1000" oninput="this.form.caloriesRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -359,7 +364,8 @@
                                 <center> <label for="sugarRange">Sugar</label>     <img src= "images/sugar.png" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="sugarRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="sugarRange" max="100" min="0" type="range" value="0" oninput="this.form.sugarAmount.value=this.value">
+                                <input type="number" id="sugarAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.sugarRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -369,7 +375,8 @@
                                 <center> <label for="starchRange">Starch</label>     <img src= "images/starch.jpg" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="starchRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="starchRange" max="100" min="0" type="range" value="0" oninput="this.form.starchAmount.value=this.value">
+                                <input type="number" id="starchAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.starchRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -379,7 +386,8 @@
                                 <center> <label for="glucoseRange">Glucose</label>     <img src= "images/glucose.png" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="glucoseRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="glucoseRange" max="100" min="0" type="range" value="0" oninput="this.form.glucoseAmount.value=this.value">
+                                <input type="number" id="glucoseAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.glucoseRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -389,7 +397,8 @@
                                 <center> <label for="ironRange">Iron</label>     <img src= "images/iron.jpg" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="ironRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="ironRange" max="100" min="0" type="range" value="0" oninput="this.form.ironAmount.value=this.value">
+                                <input type="number" id="ironAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.ironRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -399,7 +408,8 @@
                                 <center> <label for="calciumRange">Calcium</label>     <img src= "images/calcium.jpeg" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="calciumRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="calciumRange" max="2200" min="0" type="range" value="0" oninput="this.form.calciumAmount.value=this.value">
+                                <input type="number" id="calciumAmount" max="2200" min="0" value="0" placeholder="0-2200" oninput="this.form.calciumRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -409,7 +419,8 @@
                                 <center> <label for="waterRange">Water</label>     <img src= "images/water.jpg" style="width: 25px"></img></center>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input class="slider" id="waterRange" max="100" min="1" type="range" value="50">
+                                <input class="slider" id="waterRange" max="100" min="0" type="range" value="0" oninput="this.form.waterAmount.value=this.value">
+                                <input type="number" id="waterAmount" max="100" min="0" value="0" placeholder="0-100" oninput="this.form.waterRange.value=this.value" style="width: 5em">
                             </div>
                             <div class="col-md-2 form-group"></div>
                         </div>
@@ -718,7 +729,6 @@
         function Clear(){
             document.getElementsByClassName("slider").value=50;
         }
-
 
         </script>
 </html>
