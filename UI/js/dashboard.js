@@ -8,6 +8,7 @@ $(document).ready(function(){
         $("#nav-dashboard-tab").show();
         $("#nav-signout-tab").show();
         $("#nav-signin-tab").hide();
+        $("#nav-signup-tab").hide();
 
 
     } else {
