@@ -36,7 +36,7 @@ $(document).ready(function(){
             }
         }).done(function(res){
             $("#signinModal").modal('hide');
-            console.log('response length='+res);
+           // console.log('response length='+res);
             res = JSON.parse(res);
 
             if(res.length == 0) {
@@ -46,7 +46,7 @@ $(document).ready(function(){
                 var nutrition_data = [];
                 $(res).each(function(i, v){
                     //TODO: Need to find the logic to verify the order of values. As of now, it's in order.
-                    console.log(v.nutrition_name);
+                   // console.log(v.nutrition_name);
                     nutrition_data.push(parseInt(v.nutrition_value));
 
                 });
@@ -58,11 +58,11 @@ $(document).ready(function(){
                     contentType: 'application/json',
                     data: JSON.stringify({nutrition: nutrition_data}),
                     success: function(res) {
-                        console.log(res);
+                       // console.log(res);
                     }
 
                 }).done(function(res){
-                    console.log("done" + res);
+                   // console.log("done" + res);
                     $('#dashboard_recommend').empty();
                     displayRecommendations(JSON.parse(res));
 
@@ -85,7 +85,7 @@ $(document).ready(function(){
         });
     }
 
-
+    retrieveFavorites();
 
 });
 
@@ -130,7 +130,7 @@ function displayRecommendations(data) {
         var $div = $('<div>').addClass("card-deck").append(
             $('<img>').addClass("card-img-top").attr("src",'images/thumbs/' + fname + '.jpg'),
             $('<div>').addClass('card-body').append(
-                $('<h5>').text(val["Food Name"]),
+                $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> {favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
                 $('<ul>').addClass("list-group list-group-flush").append(
                     $('<li>').addClass('list-group-item').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
                     $('<li>').addClass('list-group-item').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
@@ -197,5 +197,111 @@ function displayRecommendations(data) {
 }
 
 function generateInputData(preferences) {
-    console.log(preferences);
+   // console.log(preferences);
 }
+
+function savepreferences(){
+    var data = {
+        user : sessionStorage.getItem('user'),
+        water : document.getElementById('waterAmount').value,
+        protein : document.getElementById('proteinAmount').value,
+        fat : document.getElementById('fatAmount').value,
+        carbohydrates : document.getElementById('carbohydratesAmount').value,   
+        calories : document.getElementById('caloriesAmount').value,
+        starch : document.getElementById('starchAmount').value,
+        sugar : document.getElementById('sugarAmount').value,
+        glucose : document.getElementById('glucoseAmount').value,
+        cholestrol : 0,
+        calcium : document.getElementById('calciumAmount').value,
+        iron : document.getElementById('ironAmount').value,
+    }
+    $.ajax({
+        url: "http://localhost:3001/savepreferences",
+        type: 'POST',
+        contentType: 'application/json',
+
+        data: JSON.stringify(data),
+    
+        success: function (data) {
+
+            console.log("Successfully Saved Preferences");
+        }
+    })
+}
+
+
+function favoriteFood(index, food)
+{
+  
+    if(!($('#favoriteIcon'+index).hasClass("checked")))
+    {
+        $("#favoriteIcon"+index).addClass("checked");
+
+        var favoriteData={
+            user : sessionStorage.getItem('user'),
+            food : food
+        }
+            $.ajax({
+            url: "http://localhost:3001/favorite",
+            type: 'POST',
+            contentType: 'application/json',
+
+            data: JSON.stringify(favoriteData),
+        
+            success: function (data) {
+
+                console.log("Successfully Favorited");
+                retrieveFavorites();
+            }
+        })
+    }
+}
+
+
+function removeFavorite(index, food)
+{
+    console.log(food);
+    var info={
+        user : sessionStorage.getItem('user'),
+        food : food
+    }
+        $.ajax({
+        url: "http://localhost:3001/remove-favorite",
+        type: 'POST',
+        contentType: 'application/json',
+
+        data: JSON.stringify(info),
+    
+        success: function (data) {
+
+            console.log("Successfully Removed From Favorite");
+            retrieveFavorites();
+        }
+    })
+}
+
+function retrieveFavorites()
+    {
+        console.log('retreiving favs');
+    $.ajax({
+        url: 'http://localhost:3001/favorite-foods',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            email : sessionStorage.getItem('user')
+        },
+        success: function (response) {
+            $('#favoriteTable tbody').empty();
+            console.log(response.length);
+            for(var i = 0; i<response.length; i++)
+            {
+              var id = "favListIcon"+i; 
+              $('#favoriteTable').append('<tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</td><td><span class="fa fa-star checked"  id="' + id + '" ></span></td></tr>');
+              var idselector = "#" + id;
+              console.log(idselector);
+              console.log(response[i]['Food Name']);
+              $(idselector).click(function handle() { console.log(response[id.split('n')[1]]['Food Name']) ; removeFavorite(id,response[id.split('n')[1]]['Food Name']+"")});
+            }
+        }
+    })
+};

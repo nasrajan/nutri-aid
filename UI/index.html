@@ -25,6 +25,9 @@
 
     <style>
         .modal { overflow: auto !important; }
+        .checked {
+            color: orange;
+        }
     </style>
 
     <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
@@ -215,7 +218,16 @@
 
                 </div>
                 <div aria-labelledby="messages-tab" class="tab-pane" id="messages" role="tabpanel">
-                    My favorites
+                       
+                    <table id=favoriteTable>
+                        <thead>
+                            <th>Name</th>
+                            <th>Protein</th>
+                            <th>Fat</th>
+                            <th>Carbohydrates</th>
+                            <th>Sugar</th>
+                        </thead>
+                    </table>
                 </div>
 
             </div>
@@ -498,7 +510,7 @@
 
                                 <button class="btn" data-dismiss="modal" id="submitbutton"
                                         style="background-color: #138d75  ;color:white ; border-color:#A10115"
-                                        type="submit">Confirm
+                                        type="submit" onclick="savepreferences()" >Confirm
                                 </button>
 
                             </div>
@@ -703,7 +715,7 @@
                         data: JSON.stringify(data1),
                         success: function (res) {
                             const response = JSON.parse(res);
-
+                            retrieveFavorites();
 
                         }
                     }).done(function(res){
