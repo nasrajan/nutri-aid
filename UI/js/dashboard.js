@@ -23,8 +23,54 @@ $(document).ready(function(){
         window.location = "index.html";
     });
     if (sessionStorage.hasOwnProperty('user')) {
-        var prefs = checkPreferences(sessionStorage.getItem('user'));
-        var method = 'post';
+        var data1 = {'email': sessionStorage.getItem('user')};
+        $.ajax({
+            url: "http://localhost:3001/getpreferences",
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data1),
+            success: function (res) {
+                const response = JSON.parse(res);
+
+
+            }
+        }).done(function(res){
+            $("#signinModal").modal('hide');
+            console.log('response length='+res);
+            res = JSON.parse(res);
+
+            if(res.length == 0) {
+
+                $("#initialsurveyModal").modal('show');
+            } else {
+                var nutrition_data = [];
+                $(res).each(function(i, v){
+                    //TODO: Need to find the logic to verify the order of values. As of now, it's in order.
+                    console.log(v.nutrition_name);
+                    nutrition_data.push(parseInt(v.nutrition_value));
+
+                });
+                console.log(nutrition_data);
+
+                $.ajax({
+                    url: 'http://localhost:5000',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({nutrition: nutrition_data}),
+                    success: function(res) {
+                        console.log(res);
+                    }
+
+                }).done(function(res){
+                    console.log("done" + res);
+                    $('#dashboard_recommend').empty();
+                    displayRecommendations(JSON.parse(res));
+
+                });
+            }
+
+
+        });
 
     } else {
         var method = 'get';
@@ -71,8 +117,55 @@ function drawChart() {
 }
 
 function displayRecommendations(data) {
-
+    var $row = $('<div>').addClass('row');
+    var $column = $('<div>').addClass('col-sm-3');
+    /*
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+  </a>
+     */
     $.each(data, function(index, val) {
+
+        var fname = val["Food Name"].split(" ")[0].replace(',', '');
+        var $div = $('<div>').addClass("card-deck").append(
+            $('<img>').addClass("card-img-top").attr("src",'images/thumbs/' + fname + '.jpg'),
+            $('<div>').addClass('card-body').append(
+                $('<h5>').text(val["Food Name"]),
+                $('<ul>').addClass("list-group list-group-flush").append(
+                    $('<li>').addClass('list-group-item').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
+                    $('<li>').addClass('list-group-item').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
+                    $('<li>').addClass('list-group-item').text("Starch (g): " + val["Starch (g)"]),
+                    $('<li>').addClass('list-group-item').text("Glucose (g):" + val["Glucose (g)"]),
+                    $('<li>').addClass('list-group-item').text("Cholesterol (mg):" + val["Cholesterol (mg)"]),
+                    $('<li>').addClass('list-group-item').text("Fat (g):" + val["Fat (g)"]),
+                    $('<li>').addClass('list-group-item').text("Calcium (mg): " + val["Calcium (mg)"]),
+                    $('<li>').addClass('list-group-item').text("Iron (mg):" + val["Iron (mg)"]),
+                    $('<li>').addClass('list-group-item').text("Protein (g):" + val["Protein (g)"]),
+                    $('<li>').addClass('list-group-item').text("Water (g):" + val["Water (g)"]),
+
+                    //)
+                ),
+
+            ),
+           // $('<a>').attr("data-toggle", "collapse")
+             //   .attr("href", "#nutritionlist").text("View Nutrition data").attr('aria-controls', 'nutritionlst'),
+            //$('<div>').attr('id', 'nutritionlst').addClass('collapse').append(
+
+        );
+
+        $column.append($div);
+        $row.append($column);
+        $column = $('<div>').addClass('col-sm-3');
+        if (index == 2 || index == 5 || index== 8) {
+            $('#dashboard_recommend').append($row);
+            $row = $('<div>').addClass('row');
+        }
+
+    });
+
+
+
+    /*$.each(data, function(index, val) {
         var fname = val["Food Name"].split(" ")[0].replace(',', '')
         var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
             .append($('<div>').addClass("d-flex w-100 justify-content-between")
@@ -100,7 +193,7 @@ function displayRecommendations(data) {
 
         $('#dashboard_recommend').append($a);
 
-    });
+    });*/
 }
 
 function generateInputData(preferences) {
