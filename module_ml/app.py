@@ -10,10 +10,17 @@ model = pickle.load(open('knn.pickle','rb'))
 
 df = pd.read_csv('data.csv')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def hello_world():
-    data = [[50, 2, 0.1, 1.0,3.0, 0.0, 0.2, 0.0, 1.0, 50.0, 1.5]]
-    #prediction = model.predict(np.asarray(data))
+    if request.method == 'GET':
+         data = [[50, 2, 0.1, 1.0,3.0, 0.0, 0.2, 0.0, 1.0, 50.0, 1.5]]
+    else:
+         content = request.get_json()
+         data = [content.get('nutrition')]
+         print(content)
+         print(data)
+         #data =
+
     prediction = model.kneighbors(np.asarray(data))
     vals = prediction[1][0][:10]
 

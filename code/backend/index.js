@@ -106,7 +106,7 @@ app.post('/getpreferences',function (req, res){
           console.log(error);
           return;
         }
-        var sql = "SELECT * FROM login, users_diet_preferences\n" +
+        var sql = "SELECT login.email, users_diet_preferences.id, nutrition_name, nutrition_value FROM login, users_diet_preferences\n" +
             "\tWHERE login.id=users_diet_preferences.users_id AND login.email='" + req.body.email + "'";
        // var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
         console.log(sql);
@@ -116,6 +116,28 @@ app.post('/getpreferences',function (req, res){
           console.log(JSON.stringify(response));
           res.end(JSON.stringify(response));
         });
+      }
+  )
+
+});
+app.post('/savepreferences',function (req, res){
+  console.log(req.body);
+  database.getConnection(function(error){
+        if(error)
+        {
+          console.log(error);
+          return;
+        }
+       /* var sql = "SELECT * FROM login, users_diet_preferences\n" +
+            "\tWHERE login.id=users_diet_preferences.users_id AND login.email='" + req.body.email + "'";
+        // var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
+        console.log(sql);
+        database.query(sql, function (error, response) {
+          if (error)
+            console.log(error);
+          console.log(JSON.stringify(response));
+          res.end(JSON.stringify(response));
+        });*/
       }
   )
 

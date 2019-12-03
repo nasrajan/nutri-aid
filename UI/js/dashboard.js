@@ -1,7 +1,8 @@
 $('.carousel').carousel('cycle',{
     interval: 1000
 });
-var url1 = "https://nutriaid-python.herokuapp.com/";
+//var url1 = "https://nutriaid-python.herokuapp.com/";
+var url1 = "http://localhost:5000";
 $(document).ready(function(){
     if (sessionStorage.getItem('user')) {
         // alert(sessionStorage.getItem('user'));
@@ -21,51 +22,24 @@ $(document).ready(function(){
         sessionStorage.clear();
         window.location = "index.html";
     });
+    if (sessionStorage.hasOwnProperty('user')) {
+        var prefs = checkPreferences(sessionStorage.getItem('user'));
+        var method = 'post';
 
-    $.ajax({
-        url: url1,
-        type: 'get',
-        //  data: JSON.stringify(sendinfo),
-        //  contentType: 'application/json',
-        dataType: 'json',
-        success: function (data) {
-            //console.log(data);
-            $.each(data, function(index, val) {
-                var fname = val["Food Name"].split(" ")[0].replace(',', '')
-               // console.log(fname);
+    } else {
+        var method = 'get';
+        $.ajax({
+            url: url1,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                displayRecommendations(data);
 
-                var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
-                    .append($('<div>').addClass("d-flex w-100 justify-content-between")
-                            .append(
-                                $('<h5>').text(val["Food Name"]),
-                                //  $('<small>').text("3 days ago")
-
-                            ),
-                        $('<img>').attr("src",'images/thumbs/' + fname + '.jpg'),
-                        //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
-                        $('<ul>').addClass("mb-1").append(
-                            $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
-                            $('<li>').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
-                            $('<li>').text("Starch (g): " + val["Starch (g)"]),
-                            $('<li>').text("Glucose (g):" + val["Glucose (g)"]),
-                            $('<li>').text("Cholesterol (mg):" + val["Cholesterol (mg)"]),
-                            $('<li>').text("Fat (g):" + val["Fat (g)"]),
-                            $('<li>').text("Calcium (mg): " + val["Calcium (mg)"]),
-                            $('<li>').text("Iron (mg):" + val["Iron (mg)"]),
-                            $('<li>').text("Protein (g):" + val["Protein (g)"]),
-                            $('<li>').text("Water (g):" + val["Water (g)"]),
-
-                        )
+            }
+        });
+    }
 
 
-                    );
-
-                $('#dashboard_recommend').append($a);
-
-            });
-
-        }
-    });
 
 });
 
@@ -94,4 +68,41 @@ function drawChart() {
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
+}
+
+function displayRecommendations(data) {
+
+    $.each(data, function(index, val) {
+        var fname = val["Food Name"].split(" ")[0].replace(',', '')
+        var $a = $('<a>').addClass("list-group-item list-group-item-action flex-column align-items-start")
+            .append($('<div>').addClass("d-flex w-100 justify-content-between")
+                    .append(
+                        $('<h5>').text(val["Food Name"]),
+                    ),
+                $('<img>').attr("src",'images/thumbs/' + fname + '.jpg'),
+                //  $('<p>').addClass("mb-1").text("Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."),
+                $('<ul>').addClass("mb-1").append(
+                    $('<li>').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
+                    $('<li>').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
+                    $('<li>').text("Starch (g): " + val["Starch (g)"]),
+                    $('<li>').text("Glucose (g):" + val["Glucose (g)"]),
+                    $('<li>').text("Cholesterol (mg):" + val["Cholesterol (mg)"]),
+                    $('<li>').text("Fat (g):" + val["Fat (g)"]),
+                    $('<li>').text("Calcium (mg): " + val["Calcium (mg)"]),
+                    $('<li>').text("Iron (mg):" + val["Iron (mg)"]),
+                    $('<li>').text("Protein (g):" + val["Protein (g)"]),
+                    $('<li>').text("Water (g):" + val["Water (g)"]),
+
+                )
+
+
+            );
+
+        $('#dashboard_recommend').append($a);
+
+    });
+}
+
+function generateInputData(preferences) {
+    console.log(preferences);
 }
