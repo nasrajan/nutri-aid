@@ -977,6 +977,9 @@
            console.log(response);
 
            $(document).ready(function(){
+               if ( $.fn.dataTable.isDataTable( '#searchResults' ) ) {
+                   $('#searchResults').DataTable().destroy();
+               }
                $("#searchResults").DataTable({
                    data: response,
                    "columns": [
