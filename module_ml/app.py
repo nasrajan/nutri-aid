@@ -22,7 +22,7 @@ def hello_world():
          #data =
 
     prediction = model.kneighbors(np.asarray(data))
-    vals = prediction[1][0][:10]
+    vals = prediction[1][0][:20]
 
     res = df.iloc[vals].to_json(orient='records')
     return res

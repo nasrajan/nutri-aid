@@ -21,6 +21,8 @@
     <script crossorigin="anonymous"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
     <title>Nutri-Aid :: Find the right foods for you</title>
 
     <style>
@@ -213,8 +215,17 @@
 
                 </div>
                 <div aria-labelledby="profile-tab" class="tab-pane" id="profile" role="tabpanel">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div id="piechart" style="width: 500px; height: 300px;"></div>
+                        </div>
+                        <div class="col-sm">
+                            <div id="wordcloud" style="width: 500px; height: 300px;"></div>
+                        </div>
+                    </div>
 
-                    <div id="piechart" style="width: 1200px; height: 700px;"></div>
+
+
 
                 </div>
                 <div aria-labelledby="messages-tab" class="tab-pane" id="messages" role="tabpanel">
@@ -726,6 +737,19 @@
                          if(res.length == 0) {
 
                            $("#initialsurveyModal").modal('show');
+                             $.ajax({
+                                 url: url1,
+                                 type: 'get',
+                                 dataType: 'json',
+                                 success: function (data) {
+                                    recommendations = data;
+                                     //console.log("default recommendations");
+                                     //console.log(data);
+                                     displayRecommendations(data);
+                                     google.charts.load("current", {packages:["corechart"]});
+                                     google.charts.setOnLoadCallback(drawChart);
+                                 }
+                             });
                          } else {
                              var nutrition_data = [];
                              $(res).each(function(i, v){
@@ -746,6 +770,7 @@
                                  }
 
                              }).done(function(res){
+                                 recommendations = JSON.parse(res);
                                  console.log("done" + res);
                                  $('#dashboard_recommend').empty();
                                  displayRecommendations(JSON.parse(res));

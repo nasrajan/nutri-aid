@@ -3,6 +3,8 @@ $('.carousel').carousel('cycle',{
 });
 //var url1 = "https://nutriaid-python.herokuapp.com/";
 var url1 = "http://localhost:5000";
+var nutrition_data=[];
+var recommendations=[];
 $(document).ready(function(){
     if (sessionStorage.getItem('user')) {
         // alert(sessionStorage.getItem('user'));
@@ -43,7 +45,8 @@ $(document).ready(function(){
 
                 $("#initialsurveyModal").modal('show');
             } else {
-                var nutrition_data = [];
+                //var nutrition_data = [];
+
                 $(res).each(function(i, v){
                     //TODO: Need to find the logic to verify the order of values. As of now, it's in order.
                    // console.log(v.nutrition_name);
@@ -63,8 +66,12 @@ $(document).ready(function(){
 
                 }).done(function(res){
                    // console.log("done" + res);
+                   // console.log("recommendations");
+                    recommendations = JSON.parse(res);
                     $('#dashboard_recommend').empty();
                     displayRecommendations(JSON.parse(res));
+                    google.charts.load("current", {packages:["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
 
                 });
             }
@@ -79,8 +86,11 @@ $(document).ready(function(){
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                displayRecommendations(data);
+                recommendations = data;
 
+                displayRecommendations(data);
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(drawChart);
             }
         });
     }
@@ -89,31 +99,82 @@ $(document).ready(function(){
 
 });
 
-google.charts.load("current", {packages:["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
+
 function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Nutrients', 'Energy (in calories)'],
-        ['Energy', 13], ['Carbohydrates', 83], ['Starch', 1.4],
-        ['Fat', 2.3], ['Glucose', 46], ['Cholestrol', 300],
-        ['Calcium', 300],['Protein', 300],['Iron', 300],['Water', 300]
-    ]);
+
+// Chart 1: Google Pie Chart
+    if (nutrition_data.length > 0)
+        var data = google.visualization.arrayToDataTable([
+            ['Nutrients', 'Energy (in calories)'],
+            ['Water', nutrition_data[0]], ['Protien', nutrition_data[1]], ['Fat', nutrition_data[2]],
+            ['Carbohydrate', nutrition_data[3]],  ['Starch', nutrition_data[5]],
+            ['Total Sugars', nutrition_data[6]],['Glucose', nutrition_data[7]],['Cholesterol', nutrition_data[8]],
+             ['Calcium', nutrition_data[9]], ['Iron', nutrition_data[10]]
+        ]);
+    else {
+        var data = google.visualization.arrayToDataTable([
+            ['Nutrients', 'Energy (in calories)'],
+            ['Water', 50], ['Protien', 2], ['Fat', 0.1],
+            ['Carbohydrate', 1.0],  ['Starch', 0.0],
+            ['Total Sugars', 0.2],['Glucose', 0.0],['Cholesterol', 1.0],
+            ['Calcium', 50.0], ['Iron', 1.5]
+        ]);
+    }
 
     var options = {
-        title: 'Nutrients % in Diet',
-        width:1000,
-        height:500,
-        legend: 'none',
-        pieSliceText: 'label',
-        slices: {  4: {offset: 0.2},
+        title: 'Nutritions % in the Diet picked by you',
+        width:600,
+        height:300,
+        //legend: 'none',
+        //pieSliceText: 'label',
+        /*slices: {  4: {offset: 0.2},
             12: {offset: 0.3},
             14: {offset: 0.4},
             15: {offset: 0.5},
-        },
+        },*/
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
+
+    //Chart 2: High charts word cloud
+    var rectext = [];
+    $(recommendations).each(function(i, v){
+       // rectext.push(v['Food Name']);
+        $(v['Food Name'].split(" ")).each(function(ind, val){
+            rectext.push(val);
+        });
+
+    });
+    var wordcloud_data = [];
+    var tempdata = "";
+    wordcloud_data = Highcharts.reduce(rectext, function (arr, word) {
+        var obj = Highcharts.find(arr, function (obj) {
+            return obj.name === word;
+        });
+        if (obj) {
+            obj.weight += 1;
+        } else {
+            obj = {
+                name: word,
+                weight: 1
+            };
+            arr.push(obj);
+        }
+        return arr;
+    }, []);
+    Highcharts.chart('wordcloud', {
+        series: [{
+            type: 'wordcloud',
+            data: wordcloud_data,
+            name: 'Occurrences'
+        }],
+        title: {
+            text: 'Wordcloud from the Recommended Food Names'
+        }
+    });
+
+    // Chart 3:
 }
 
 function displayRecommendations(data) {
@@ -156,7 +217,8 @@ function displayRecommendations(data) {
         $column.append($div);
         $row.append($column);
         $column = $('<div>').addClass('col-sm-3');
-        if (index == 2 || index == 5 || index== 8) {
+       // if (index == 2 || index == 5 || index== 8) {
+        if ((index+1) %3 == 0) {
             $('#dashboard_recommend').append($row);
             $row = $('<div>').addClass('row');
         }
@@ -196,9 +258,7 @@ function displayRecommendations(data) {
     });*/
 }
 
-function generateInputData(preferences) {
-   // console.log(preferences);
-}
+
 
 function savepreferences(){
     var data = {
