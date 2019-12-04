@@ -30,6 +30,7 @@
         .checked {
             color: orange;
         }
+        
     </style>
 
     <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
@@ -237,6 +238,7 @@
                             <th>Fat</th>
                             <th>Carbohydrates</th>
                             <th>Sugar</th>
+                            <th>Remove</th>
                         </thead>
                     </table>
                 </div>
@@ -320,7 +322,21 @@
                         <input id="confirmPasswordInput" oninput="confirmPassword()" required size="35"
                                style="margin-top:10px" type="password"> <br><br>
                         <p id="matchPassword"></p>
-
+                        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Security Question 1</span><br>
+                        
+                        <select id="q1" style="width:266px; font-family:Verdana, Geneva, Tahoma, sans-serif;">
+                            <option>What is your father's middle name?</option>
+                            <option >What is your mothers's maiden name?</option>
+                            <option >How many siblings do you have?</option>
+                        </select><br>
+                        <input id="a1Input"  required size="35" style="margin-top:10px" type="text"> <br><br>
+                        <select id="q2" style="width:266px; font-family:Verdana, Geneva, Tahoma, sans-serif;">
+                            <option >What city were you born in?</option>
+                            <option >What was the name of your first school?</option>
+                            <option >What is your favorite color?</option>
+                        </select><br>
+                        <input id="a2Input"  required size="35" style="margin-top:10px" type="text"> <br><br>
+          
                         <button class="btn" id="submitbutton"
                                 style="background-color: #138d75 ;color:white ; border-color:#A10115; margin-left: 35%; "
                                 type="submit">Sign Up
@@ -328,7 +344,9 @@
 
                         <p class="alertMessage" id="alertMessage" style="margin-left:14%"></p>
                         <!--                                     <p style="margin-left:9%">Already Have an Account?<a href="#signinModal"> SignIn Here</a></p>
-                         -->                                  </form>
+                         -->                              
+                        
+                        </form>
                 </div>
 
             </div>
@@ -362,7 +380,7 @@
 
                         <p class="alertMessage" id="signinAlertMessage" style="margin-left:4%"></p>
 
-                        <a href="" style="margin-left:30%">Forgot Password?</a><br>
+                        <a href="#forgotpasswordModal" style="margin-left:30%" onclick="forgotpassword()">Forgot Password?</a><br>
 
                         <!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
                          -->                            </form>
@@ -372,7 +390,96 @@
         </div>
     </div>
 
+    <div aria-hidden="true" aria-labelledby="forgotpasswordModalCenterTitle" class="modal fade" id="forgotpasswordModal" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width:360px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotpasswordModal" style="color:#138d75">Enter Answers to Security Questions</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:checksecurity();">
+                        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;" id="sq1"></span><br>
+                        <input id="s1ansInput" required size="35" style="margin-top:10px" type="text"> <br><br>
 
+                        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;" id="sq2"></span><br>
+                        <input id="s2ansInput" required size="35" style="margin-top:10px" type="text"> <br><br>
+
+                        <p class="alertMessage" id="forgotpasswordAlert" style="margin-left:4%"></p>
+
+                        <button class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 " type="submit">Submit
+                        </button>
+                        </form>
+                </div>
+            
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div aria-hidden="true" aria-labelledby="resetpasswordModalCenterTitle" class="modal fade" id="resetpasswordModal" role="dialog"
+    tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered" role="document" style="width:360px">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="resetpasswordModal" style="color:#138d75">Enter Answers to Security Questions</h5>
+               <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+    <div class="modal-body">
+        <form action="javascript:resetpassword();">
+            <div><span
+                style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Password </span><br>
+            <input id="resetpasswordInput"
+                   onblur="document.getElementById('resetpassword_constraints').style.setProperty('display', 'none')"
+                   onfocus="document.getElementById('resetpassword_constraints').style.setProperty('display', 'block')"
+                   oninput="checkPassword('reset')" required size="35" style="margin-top:10px" type="password"><br><br>
+        </div>
+
+        <div id="resetpassword_constraints"
+             style="margin-left:50px; border-radius: 10px; border: solid 2px; border-color: #138d75; background-color: white; padding:10px; position: absolute; width: 335px; display:none">
+
+            <p>Strength:
+                <progress id="resetsecurity-value" max="6" value="0"></progress>
+                <span id="resetsecurity-message"></span> <br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Be Atleast 8 Characters<span
+                        id="resetlengthConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span><br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Uppercase Letter <span
+                        id="resetuppercaseConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span>
+                <br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Lowercase Letter <span
+                        id="resetlowercaseConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span><br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Contain 1 Number <span
+                        id="resetnumberConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span><br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Only Use A-z, 0-9, @, -, _, and .  <span
+                        id="resetcharacterConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span><br>
+                <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;">Must Not Be Same As Email<span
+                        id="resetemailConstraint"
+                        style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #138d75; font-size: small;"></span></span><br>
+            </p>
+        </div>
+
+        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Confirm Password </span><br>
+        <input id="resetconfirmPasswordInput" oninput="confirmPassword('reset')" required size="35"
+               style="margin-top:10px" type="password"> <br><br>
+        <p id="resetmatchPassword"></p>
+            <button class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 " type="submit">Submit
+            </button>
+            </form>
+    </div>
+</div>
+</div>
+</div>
     <div aria-hidden="true" aria-labelledby="initialsurveyModalCenterTitle" class="modal fade" id="initialsurveyModal"
          role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="width:1000px">
@@ -593,92 +700,101 @@
 <!-- Footer -->
 
 <script>
-    // var url = "http://localhost:3001/signup";
-    function checkPassword() {
-        var password = document.getElementById("passwordInput").value;
+    function checkPassword(reset = "") {
+        console.log(reset);
+        var password =  document.getElementById(reset + "passwordInput").value;
+        console.log(password);
         var email = document.getElementById('emailInput').value;
         var secure = 0;
         if (password.length >= 8) {
-            document.getElementById('lengthConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'lengthConstraint').innerHTML = ' &#10004';
             secure++;
         } else {
-            document.getElementById('lengthConstraint').innerHTML = '';
+            document.getElementById(reset + 'lengthConstraint').innerHTML = '';
         }
         if (password != email) {
-            document.getElementById('emailConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'emailConstraint').innerHTML = ' &#10004';
             secure++;
         } else {
-            document.getElementById('emailConstraint').innerHTML = '';
+            document.getElementById(reset + 'emailConstraint').innerHTML = '';
         }
 
         if (password.match(/[0-9]/)) {
-            document.getElementById('numberConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'numberConstraint').innerHTML = ' &#10004';
             secure++;
         } else {
-            document.getElementById('numberConstraint').innerHTML = '';
+            document.getElementById(reset + 'numberConstraint').innerHTML = '';
         }
         if (password.match(/^[A-Za-z0-9@_.-]+$/)) {
-            document.getElementById('characterConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'characterConstraint').innerHTML = ' &#10004';
             secure++;
         } else {
-            document.getElementById('characterConstraint').innerHTML = '';
+            document.getElementById(reset + 'characterConstraint').innerHTML = '';
         }
         if (password.match(/[A-Z]/)) {
-            document.getElementById('uppercaseConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'uppercaseConstraint').innerHTML = ' &#10004';
             secure++;
 
         } else {
-            document.getElementById('uppercaseConstraint').innerHTML = '';
+            document.getElementById(reset + 'uppercaseConstraint').innerHTML = '';
         }
         if (password.match(/[a-z]/)) {
-            document.getElementById('lowercaseConstraint').innerHTML = ' &#10004';
+            document.getElementById(reset + 'lowercaseConstraint').innerHTML = ' &#10004';
             secure++;
 
         } else {
-            document.getElementById('lowercaseConstraint').innerHTML = '';
+            document.getElementById(reset + 'lowercaseConstraint').innerHTML = '';
         }
 
         if (password.length == 0) {
-            document.getElementById('security-message').innerHTML = '';
+            document.getElementById(reset + 'security-message').innerHTML = '';
             secure = 0;
         } else if (secure <= 3) {
-            document.getElementById('security-message').innerHTML = 'Weak';
-            document.getElementById('security-message').style.color = "red";
+            document.getElementById(reset + 'security-message').innerHTML = 'Weak';
+            document.getElementById(reset + 'security-message').style.color = "red";
 
         } else {
-            document.getElementById('security-message').innerHTML = 'Strong';
-            document.getElementById('security-message').style.color = 'green';
+            document.getElementById(reset + 'security-message').innerHTML = 'Strong';
+            document.getElementById(reset + 'security-message').style.color = 'green';
 
         }
-        console.log(document.getElementById('security-value').value);
-        document.getElementById('security-value').value = secure;
+        console.log(document.getElementById(reset + 'security-value').value);
+        document.getElementById(reset + 'security-value').value = secure;
 
 
     }
 
-    function confirmPassword() {
-        var password = document.getElementById('passwordInput').value;
-        var confirmPassword = document.getElementById('confirmPasswordInput').value;
+    function confirmPassword(reset = "") {
+        var password = document.getElementById(reset + 'passwordInput').value;
+        var confirmPassword = document.getElementById(reset + 'confirmPasswordInput').value;
         if (password != confirmPassword) {
-            document.getElementById("matchPassword").innerHTML = "Passwords Do Not Match";
-            document.getElementById("matchPassword").style.color = "red";
-            document.getElementById("matchPassword").style.marginLeft = "20%";
+            document.getElementById(reset + "matchPassword").innerHTML = "Passwords Do Not Match";
+            document.getElementById(reset + "matchPassword").style.color = "red";
+            document.getElementById(reset + "matchPassword").style.marginLeft = "20%";
 
         } else {
-            document.getElementById("matchPassword").innerHTML = "Passwords Match";
-            document.getElementById("matchPassword").style.color = "green";
-            document.getElementById("matchPassword").style.marginLeft = "29%";
+            document.getElementById(reset + "matchPassword").innerHTML = "Passwords Match";
+            document.getElementById(reset + "matchPassword").style.color = "green";
+            document.getElementById(reset + "matchPassword").style.marginLeft = "29%";
         }
     }
 
     function signup() {
+        console.log('attempting signup');
+        console.log(nodeURL + "signup");
+        var q1 = document.getElementById('q1');
+        var q2 = document.getElementById('q2');
         const data = {
             'name': document.getElementById('nameInput').value,
             'email': document.getElementById('emailInput').value,
-            'password': document.getElementById('passwordInput').value
+            'password': document.getElementById('passwordInput').value,
+            'question1' :q1.options[q1.selectedIndex].text,
+            'answer1':document.getElementById('a1Input').value,
+            'question2' :q2.options[q2.selectedIndex].text,
+            'answer2':document.getElementById('a2Input').value
         }
         $.ajax({
-            url: "http://localhost:3001/signup",
+            url: nodeURL + "signup",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -700,8 +816,9 @@
             'email': document.getElementById('signinEmailInput').value,
             'password': document.getElementById('signinPasswordInput').value
         }
+        console.log(nodeURL + "signin");
         $.ajax({
-            url: "http://localhost:3001/signin",
+            url: nodeURL + "signin",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -720,7 +837,7 @@
                     //console.log(preferences);
                     var data1 = {'email': data.email};
                     $.ajax({
-                        url: "http://localhost:3001/getpreferences",
+                        url: nodeURL + "getpreferences",
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(data1),
@@ -761,7 +878,7 @@
                              console.log(nutrition_data);
 
                              $.ajax({
-                                 url: 'http://localhost:5000',
+                                 url: pythonURL,
                                  type: 'POST',
                                  contentType: 'application/json',
                                  data: JSON.stringify({nutrition: nutrition_data}),
@@ -812,7 +929,7 @@
         out=[];
         console.log(email);
         $.ajax({
-            url: "http://localhost:3001/getpreferences",
+            url: nodeURL + "getpreferences",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data1),
@@ -837,7 +954,7 @@
 
         $.ajax({
 
-          url: "http://localhost:3001/search",
+          url: nodeURL + "search",
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(data),

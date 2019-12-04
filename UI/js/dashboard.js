@@ -5,6 +5,9 @@ $('.carousel').carousel('cycle',{
 var url1 = "http://localhost:5000";
 var nutrition_data=[];
 var recommendations=[];
+
+var pythonURL = "http://localhost:5000";
+var nodeURL = "http://localhost:3001/";//"https://nutri-aid-backend.herokuapp.com/";
 $(document).ready(function(){
     if (sessionStorage.getItem('user')) {
         // alert(sessionStorage.getItem('user'));
@@ -14,11 +17,13 @@ $(document).ready(function(){
         $("#nav-signup-tab").hide();
 
 
+
     } else {
         $("#nav-dashboard-tab").hide();
         $("#nav-signout-tab").hide();
         $("#nav-signin-tab").show();
     }
+    //$("#forgotpasswordModal").hide();
 
     $("#nav-signout-tab").click(function(){
         sessionStorage.clear();
@@ -27,7 +32,7 @@ $(document).ready(function(){
     if (sessionStorage.hasOwnProperty('user')) {
         var data1 = {'email': sessionStorage.getItem('user')};
         $.ajax({
-            url: "http://localhost:3001/getpreferences",
+            url: nodeURL + "getpreferences",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data1),
@@ -53,10 +58,10 @@ $(document).ready(function(){
                     nutrition_data.push(parseInt(v.nutrition_value));
 
                 });
-                console.log(nutrition_data);
+                //console.log(nutrition_data);
 
                 $.ajax({
-                    url: 'http://localhost:5000',
+                    url: pythonURL,
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({nutrition: nutrition_data}),
@@ -82,7 +87,7 @@ $(document).ready(function(){
     } else {
         var method = 'get';
         $.ajax({
-            url: url1,
+            url: pythonURL,
             type: 'get',
             dataType: 'json',
             success: function (data) {
@@ -185,13 +190,16 @@ function displayRecommendations(data) {
     Link with href
   </a>
      */
+
     $.each(data, function(index, val) {
 
         var fname = val["Food Name"].split(" ")[0].replace(',', '');
+        checkFavorite(val["Food Name"], index);
+
         var $div = $('<div>').addClass("card-deck").append(
             $('<img>').addClass("card-img-top").attr("src",'images/thumbs/' + fname + '.jpg'),
             $('<div>').addClass('card-body').append(
-                $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> {favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
+                $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
                 $('<ul>').addClass("list-group list-group-flush").append(
                     $('<li>').addClass('list-group-item').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
                     $('<li>').addClass('list-group-item').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
@@ -222,8 +230,10 @@ function displayRecommendations(data) {
             $('#dashboard_recommend').append($row);
             $row = $('<div>').addClass('row');
         }
-
     });
+
+    retrieveFavorites();
+
 
 
 
@@ -276,7 +286,7 @@ function savepreferences(){
         iron : document.getElementById('ironAmount').value,
     }
     $.ajax({
-        url: "http://localhost:3001/savepreferences",
+        url: nodeURL + "savepreferences",
         type: 'POST',
         contentType: 'application/json',
 
@@ -284,7 +294,7 @@ function savepreferences(){
     
         success: function (data) {
 
-            console.log("Successfully Saved Preferences");
+           // console.log("Successfully Saved Preferences");
         }
     })
 }
@@ -299,10 +309,11 @@ function favoriteFood(index, food)
 
         var favoriteData={
             user : sessionStorage.getItem('user'),
-            food : food
+            food : food,
+            index : index
         }
             $.ajax({
-            url: "http://localhost:3001/favorite",
+            url: nodeURL + "favorite",
             type: 'POST',
             contentType: 'application/json',
 
@@ -310,7 +321,7 @@ function favoriteFood(index, food)
         
             success: function (data) {
 
-                console.log("Successfully Favorited");
+              //  console.log("Successfully Favorited");
                 retrieveFavorites();
             }
         })
@@ -320,21 +331,24 @@ function favoriteFood(index, food)
 
 function removeFavorite(index, food)
 {
+    console.log(index);
     console.log(food);
     var info={
         user : sessionStorage.getItem('user'),
         food : food
     }
         $.ajax({
-        url: "http://localhost:3001/remove-favorite",
+        url: nodeURL + "remove-favorite",
         type: 'POST',
         contentType: 'application/json',
-
         data: JSON.stringify(info),
     
         success: function (data) {
 
-            console.log("Successfully Removed From Favorite");
+
+             $("#favoriteIcon" + JSON.parse(data)["REC_INDEX"]).removeClass("checked");
+
+           // console.log("Successfully Removed From Favorite");
             retrieveFavorites();
         }
     })
@@ -342,9 +356,9 @@ function removeFavorite(index, food)
 
 function retrieveFavorites()
     {
-        console.log('retreiving favs');
+
     $.ajax({
-        url: 'http://localhost:3001/favorite-foods',
+        url: nodeURL + 'favorite-foods',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -352,16 +366,129 @@ function retrieveFavorites()
         },
         success: function (response) {
             $('#favoriteTable tbody').empty();
-            console.log(response.length);
-            for(var i = 0; i<response.length; i++)
-            {
+            $(response).each(function(i, v){
+
+
               var id = "favListIcon"+i; 
-              $('#favoriteTable').append('<tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</td><td><span class="fa fa-star checked"  id="' + id + '" ></span></td></tr>');
-              var idselector = "#" + id;
-              console.log(idselector);
-              console.log(response[i]['Food Name']);
-              $(idselector).click(function handle() { console.log(response[id.split('n')[1]]['Food Name']) ; removeFavorite(id,response[id.split('n')[1]]['Food Name']+"")});
-            }
+              //console.log(id);
+              //   $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
+              $('#favoriteTable')
+              .append($('<tr>')
+              .append($('<td>').html(response[i]["Food Name"]),
+               $('<td>').html(response[i]["Protein"]),
+               $('<td>').html(response[i]["Fat"]),
+               $('<td>').html(response[i]["Carbohydrate"]),
+              $('<td>').html(response[i]["Total Sugars"]),
+              $('<td>')
+              .append($('<span>').addClass("fa fa-star checked").attr("id", id).click( ()=> {  removeFavorite(i,response[i]['Food Name']) }))
+              ))
+
+            })
+               // console.log("#favoriteIcon"+i);
+             // $("#favoriteIcon"+i).addClass("checked");
+             //   var idselector = "#" + id;
+              /*$(idselector).click(()=> {
+                  console.log(id);
+                  console.log(response[id.split('n')[1]]['Food Name']);
+                  removeFavorite(id,response[id.split('n')[1]]['Food Name']+"")
+                });*/
+
+
+
         }
     })
 };
+
+function forgotpassword()
+{
+    console.log('forgot password');
+
+    $("#signinModal").modal('hide');
+    $.ajax({
+        url: nodeURL + 'securityquestions',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            email :document.getElementById('signinEmailInput').value
+        },
+        success: function (response) {
+            console.log(response[0].sec_ques1);
+            document.getElementById('sq1').innerHTML = response[0].sec_ques1;
+            document.getElementById('sq2').innerHTML = response[0].sec_ques2;
+        }
+    })
+    $("#forgotpasswordModal").modal('show');
+
+}
+
+function checksecurity(){
+    console.log('clicked');
+    $.ajax({
+        url: nodeURL + 'checksecurity',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            email :document.getElementById('signinEmailInput').value,
+            ans1 : document.getElementById('s1ansInput').value,
+            ans2 : document.getElementById('s2ansInput').value,
+            ques1 : document.getElementById('sq1').innerHTML,
+            ques2  : document.getElementById('sq2').innerHTML
+        },
+        success: function (response) {
+            console.log(response);
+            if(response.authenticated)
+            {
+                $("#forgotpasswordModal").modal('hide');
+                $("#resetpasswordModal").modal('show');
+            }
+            else
+            {
+                document.getElementById('forgotpasswordAlert').innerHTML = "Sorry, either answer 1 or 2 is incorrect. Please try again.";
+            }
+        }
+    })
+}
+
+
+function resetpassword(){
+    console.log(document.getElementById('resetpasswordInput').value);
+    $.ajax({
+        url: nodeURL + 'resetpassword',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            email :document.getElementById('signinEmailInput').value,
+            password : document.getElementById('resetpasswordInput').value,
+
+        },
+
+        success: function (response) {
+
+            $("#resetpasswordModal").modal('hide');
+            window.location = "index.html"
+
+        }
+    })
+}
+
+function checkFavorite(food,index){
+    var fav = null;
+    $.ajax({
+        url: nodeURL + 'checkfavorite',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            user :sessionStorage.getItem('user'),
+            food : food
+
+        },
+
+        success: function (response) {
+            if(response.favorite)
+                $("#favoriteIcon" + index).addClass("checked");
+            else
+                $("#favoriteIcon" + index).remove("checked");
+
+        }
+    })
+}
