@@ -75,8 +75,9 @@ $(document).ready(function(){
                     recommendations = JSON.parse(res);
                     $('#dashboard_recommend').empty();
                     displayRecommendations(JSON.parse(res));
-                    google.charts.load("current", {packages:["corechart"]});
-                    google.charts.setOnLoadCallback(drawChart);
+                   // google.charts.load("current", {packages:["corechart", "bar"]});
+                  //  google.charts.setOnLoadCallback(drawChart);
+                    loadStatistics();
 
                 });
             }
@@ -94,8 +95,7 @@ $(document).ready(function(){
                 recommendations = data;
 
                 displayRecommendations(data);
-                google.charts.load("current", {packages:["corechart"]});
-                google.charts.setOnLoadCallback(drawChart);
+                loadStatistics();
             }
         });
     }
@@ -104,7 +104,10 @@ $(document).ready(function(){
 
 });
 
-
+function loadStatistics() {
+    google.charts.load("current", {packages:["corechart", "bar"]});
+    google.charts.setOnLoadCallback(drawChart);
+}
 function drawChart() {
 
 // Chart 1: Google Pie Chart
@@ -144,13 +147,21 @@ function drawChart() {
 
     //Chart 2: High charts word cloud
     var rectext = [];
+    var names_calories = [['Food Name', 'Calories']];
+    var names_nutrition = [['Food Name', 'Protein (g)', 'Fat (g)', 'Total Sugars (g)', 'Cholesterol (mg)']]
     $(recommendations).each(function(i, v){
        // rectext.push(v['Food Name']);
         $(v['Food Name'].split(" ")).each(function(ind, val){
             rectext.push(val);
+
         });
+        names_calories.push([v['Food Name'], parseInt(v['Energy (kcal) (kcal)'])]);
+        names_nutrition.push([v['Food Name'], parseInt(v['Protein (g)']),
+            parseInt(v['Fat (g)']), parseInt(v['Total sugars (g)']),
+                parseInt(v['Cholesterol (mg)'])]);
 
     });
+    console.log(names_calories);
     var wordcloud_data = [];
     var tempdata = "";
     wordcloud_data = Highcharts.reduce(rectext, function (arr, word) {
@@ -179,28 +190,71 @@ function drawChart() {
         }
     });
 
-    // Chart 3:
+    // Chart 3:  Calories per recommended food
+    var data = google.visualization.arrayToDataTable(
+        names_calories
+    );
+
+    var options = {
+        title: 'Total calories per recommended food',
+        chartArea: {width: '100%'},
+        width:600,
+        height:300,
+        legend: 'none',
+        colors: ['#b0120a', '#ffab91'],
+        hAxis: {
+            title: 'Energy Calories(kcal)',
+           // minValue: 0
+        },
+        vAxis: {
+            title: 'Food Name'
+        }
+    };
+    var chart = new google.visualization.BarChart(document.getElementById('caloriesbar'));
+    chart.draw(data, options);
+
+    // Chart 4: Other nutrients per recommended food
+
+    var data = google.visualization.arrayToDataTable(
+        names_nutrition
+    );
+
+    var options = {
+        title: 'Comparison of nurtients per recommended food',
+        chartArea: {width: '100%'},
+        width:600,
+        height:300,
+        bar: {groupWidth: "95%"},
+        isStacked: true,
+        //colors: ['#b0120a', '#ffab91'],
+        hAxis: {
+            title: 'Nutrient values',
+            // minValue: 0
+        },
+        vAxis: {
+            title: 'Food Name'
+        }
+    };
+    var chart = new google.visualization.BarChart(document.getElementById('othersbar'));
+    chart.draw(data, options);
+
 }
 
 function displayRecommendations(data) {
     var $row = $('<div>').addClass('row');
     var $column = $('<div>').addClass('col-sm-3');
-    /*
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Link with href
-  </a>
-     */
+
 
     $.each(data, function(index, val) {
 
         var fname = val["Food Name"].split(" ")[0].replace(',', '');
         checkFavorite(val["Food Name"], index);
 
-        var $div = $('<div>').addClass("card-deck").append(
+        var $div = $('<div>').addClass("card-deck shadow-lg p-3 mb-5 bg-white rounded").attr('style','width: 18rem;border:1px solid grey; margin-bottom:10px;margin-left:20px;').append(
             $('<img>').addClass("card-img-top").attr("src",'images/thumbs/' + fname + '.jpg'),
             $('<div>').addClass('card-body').append(
                 $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
-                $('<ul>').addClass("list-group list-group-flush").append(
+                $('<ul>').addClass("list-group list-group-flush").attr('style', 'width:100%').append(
                     $('<li>').addClass('list-group-item').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
                     $('<li>').addClass('list-group-item').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
                     $('<li>').addClass('list-group-item').text("Starch (g): " + val["Starch (g)"]),
@@ -366,10 +420,12 @@ function retrieveFavorites()
         },
         success: function (response) {
             $('#favoriteTable tbody').empty();
+
             $(response).each(function(i, v){
 
+              var id = "favListIcon"+i;
 
-              var id = "favListIcon"+i; 
+
               //console.log(id);
               //   $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
               $('#favoriteTable')

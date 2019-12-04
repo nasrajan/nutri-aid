@@ -13,6 +13,7 @@
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--Javascripts: Jquery & BootstrapJS-->
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
              integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -23,6 +24,8 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
     <title>Nutri-Aid :: Find the right foods for you</title>
 
     <style>
@@ -216,12 +219,20 @@
 
                 </div>
                 <div aria-labelledby="profile-tab" class="tab-pane" id="profile" role="tabpanel">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div id="piechart" style="width: 500px; height: 300px;"></div>
+                    <div class="row" style="padding:10px;">
+                        <div class="col-sm-6">
+                            <div id="piechart" style="width: 600px; height: 300px;"></div>
                         </div>
-                        <div class="col-sm">
-                            <div id="wordcloud" style="width: 500px; height: 300px;"></div>
+                        <div class="col-sm-6">
+                            <div id="wordcloud" style="width: 600px; height: 300px;"></div>
+                        </div>
+                    </div>
+                    <div class="row"  style="padding:10px;">
+                        <div class="col-sm-6">
+                            <div id="caloriesbar" style="width: 500px; height: 300px;"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="othersbar" style="width: 500px; height: 300px;"></div>
                         </div>
                     </div>
 
@@ -230,8 +241,8 @@
 
                 </div>
                 <div aria-labelledby="messages-tab" class="tab-pane" id="messages" role="tabpanel">
-                       
-                    <table id=favoriteTable>
+
+                    <table id=favoriteTable class="table table-striped">
                         <thead>
                             <th>Name</th>
                             <th>Protein</th>
@@ -241,13 +252,14 @@
                             <th>Remove</th>
                         </thead>
                     </table>
+
                 </div>
 
             </div>
 
         </div>
         <div aria-labelledby="search-tab" class="tab-pane" id="search" role="tabpanel">
-            <table id="searchResults">
+            <table id="searchResults" class="display">
                 <thead>
                     <th>Name</th>
                     <th>Protein</th>
@@ -255,6 +267,7 @@
                     <th>Carbohydrates</th>
                     <th>Sugar</th>
                 </thead>
+
             </table>
         </div>
     </div>
@@ -863,8 +876,9 @@
                                      //console.log("default recommendations");
                                      //console.log(data);
                                      displayRecommendations(data);
-                                     google.charts.load("current", {packages:["corechart"]});
-                                     google.charts.setOnLoadCallback(drawChart);
+                                    // google.charts.load("current", {packages:["corechart", "bar"]});
+                                     //google.charts.setOnLoadCallback(drawChart);
+                                     loadStatistics();
                                  }
                              });
                          } else {
@@ -961,11 +975,26 @@
           success: function(res){
            const response = JSON.parse(res);
            console.log(response);
+
            $(document).ready(function(){
-               for(var i = 0; i<response.length; i++)
+               $("#searchResults").DataTable({
+                   data: response,
+                   "columns": [
+                       { "data": "Food Name" },
+                       { "data": "Protein" },
+                       { "data": "Fat" },
+                       { "data": "Carbohydrate" },
+                       { "data": "Total Sugars" }
+
+                   ]
+
+               });
+             /*  for(var i = 0; i<response.length; i++)
                {
-                 $('#searchResults').append('<tbody></tbody><tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</tbody></td></tr>');
+                 $('#searchResults').append('<tbody><tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</tbody></td></tr>');
                }
+            */
+
           })
         }})
       }
