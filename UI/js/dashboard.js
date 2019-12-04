@@ -6,6 +6,10 @@ var url1 = "http://localhost:5000";
 var nutrition_data=[];
 var recommendations=[];
 
+var favorites =  [];
+var favoritesAdded = (localStorage.getItem('favoritesAdded')) ? JSON.parse(localStorage.getItem('favoritesAdded')) : [];
+var favoritesRemoved = (localStorage.getItem('favoritesRemoved')) ? JSON.parse(localStorage.getItem('favoritesRemoved')) : [];
+
 var pythonURL = "http://localhost:5000";
 var nodeURL = "http://localhost:3001/";//"https://nutri-aid-backend.herokuapp.com/";
 $(document).ready(function(){
@@ -26,10 +30,32 @@ $(document).ready(function(){
     //$("#forgotpasswordModal").hide();
 
     $("#nav-signout-tab").click(function(){
-        sessionStorage.clear();
-        window.location = "index.html";
+   
+         var data ={
+            add : JSON.parse(localStorage.getItem('favoritesAdded')),
+            remove : JSON.parse(localStorage.getItem('favoritesRemoved')),
+            user : sessionStorage.getItem('user')
+        }
+        console.log(data);
+       // sessionStorage.clear();
+       // window.location = "index.html";
+        
+        $.ajax({
+            url: nodeURL + "updatedb",
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (res) {
+                console.log(res);
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location = "index.html";
+            }
+        }) 
+        
     });
     if (sessionStorage.hasOwnProperty('user')) {
+        retrieveFavorites();
         var data1 = {'email': sessionStorage.getItem('user')};
         $.ajax({
             url: nodeURL + "getpreferences",
@@ -99,9 +125,6 @@ $(document).ready(function(){
             }
         });
     }
-
-    retrieveFavorites();
-
 });
 
 function loadStatistics() {
@@ -248,12 +271,11 @@ function displayRecommendations(data) {
     $.each(data, function(index, val) {
 
         var fname = val["Food Name"].split(" ")[0].replace(',', '');
-        checkFavorite(val["Food Name"], index);
 
         var $div = $('<div>').addClass("card-deck shadow-lg p-3 mb-5 bg-white rounded").attr('style','width: 18rem;border:1px solid grey; margin-bottom:10px;margin-left:20px;').append(
             $('<img>').addClass("card-img-top").attr("src",'images/thumbs/' + fname + '.jpg'),
             $('<div>').addClass('card-body').append(
-                $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
+                $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon-" + fname).click( ()=> { favoriteFood(index,val,fname)}).addClass("fa fa-star")),
                 $('<ul>').addClass("list-group list-group-flush").attr('style', 'width:100%').append(
                     $('<li>').addClass('list-group-item').text("Energy (kcal): " + val["Energy (kcal) (kcal)"]),
                     $('<li>').addClass('list-group-item').text("Carbohydrate (g): " + val["Carbohydrate (g)"]),
@@ -275,6 +297,7 @@ function displayRecommendations(data) {
             //$('<div>').attr('id', 'nutritionlst').addClass('collapse').append(
 
         );
+        starFavorite(val["Food Name"],fname,index);
 
         $column.append($div);
         $row.append($column);
@@ -286,7 +309,6 @@ function displayRecommendations(data) {
         }
     });
 
-    retrieveFavorites();
 
 
 
@@ -354,58 +376,43 @@ function savepreferences(){
 }
 
 
-function favoriteFood(index, food)
+function favoriteFood(index, food, foodindex)
 {
-  
-    if(!($('#favoriteIcon'+index).hasClass("checked")))
+ 
+    if(!($('#favoriteIcon-'+foodindex).hasClass("checked")))
     {
-        $("#favoriteIcon"+index).addClass("checked");
+        $("#favoriteIcon-"+foodindex).addClass("checked");
 
-        var favoriteData={
-            user : sessionStorage.getItem('user'),
-            food : food,
-            index : index
-        }
-            $.ajax({
-            url: nodeURL + "favorite",
-            type: 'POST',
-            contentType: 'application/json',
-
-            data: JSON.stringify(favoriteData),
-        
-            success: function (data) {
-
-              //  console.log("Successfully Favorited");
-                retrieveFavorites();
-            }
-        })
+        favoritesAdded.push(food);
+        localStorage.setItem('favoritesAdded',JSON.stringify(favoritesAdded));
+       // console.log(JSON.parse(localStorage.getItem('favoritesAdded')));
     }
 }
 
 
-function removeFavorite(index, food)
+function removeFavorite(food)
 {
-    console.log(index);
-    console.log(food);
-    var info={
-        user : sessionStorage.getItem('user'),
-        food : food
+    var found = false;
+    for(var i = 0; i<favoritesAdded.length; i++)
+    {
+        if(favoritesAdded[i]["Food Name"]== food)
+        {
+            console.log(food);
+            favoritesAdded.splice(i,1);
+            localStorage.setItem('favoritesAdded', JSON.stringify(favoritesAdded));
+            found = true;
+            break;
+        }     
     }
-        $.ajax({
-        url: nodeURL + "remove-favorite",
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(info),
-    
-        success: function (data) {
-
-
-             $("#favoriteIcon" + JSON.parse(data)["REC_INDEX"]).removeClass("checked");
-
-           // console.log("Successfully Removed From Favorite");
-            retrieveFavorites();
-        }
-    })
+    if(!found)
+    {
+        favoritesRemoved.push(food);
+        localStorage.setItem('favoritesRemoved',JSON.stringify(favoritesRemoved));
+        
+    }
+    var foodindex = food.split(" ")[0].replace(',', '');
+    $('#favoriteIcon-'+foodindex).removeClass('checked');
+    displayFavorites();
 }
 
 function retrieveFavorites()
@@ -419,38 +426,7 @@ function retrieveFavorites()
             email : sessionStorage.getItem('user')
         },
         success: function (response) {
-            $('#favoriteTable tbody').empty();
-
-            $(response).each(function(i, v){
-
-              var id = "favListIcon"+i;
-
-
-              //console.log(id);
-              //   $('<h5>').text(val["Food Name"]).append($('<span>').attr("id","favoriteIcon" + index).click( ()=> { favoriteFood(index,val["Food Name"])}).addClass("fa fa-star")),
-              $('#favoriteTable')
-              .append($('<tr>')
-              .append($('<td>').html(response[i]["Food Name"]),
-               $('<td>').html(response[i]["Protein"]),
-               $('<td>').html(response[i]["Fat"]),
-               $('<td>').html(response[i]["Carbohydrate"]),
-              $('<td>').html(response[i]["Total Sugars"]),
-              $('<td>')
-              .append($('<span>').addClass("fa fa-star checked").attr("id", id).click( ()=> {  removeFavorite(i,response[i]['Food Name']) }))
-              ))
-
-            })
-               // console.log("#favoriteIcon"+i);
-             // $("#favoriteIcon"+i).addClass("checked");
-             //   var idselector = "#" + id;
-              /*$(idselector).click(()=> {
-                  console.log(id);
-                  console.log(response[id.split('n')[1]]['Food Name']);
-                  removeFavorite(id,response[id.split('n')[1]]['Food Name']+"")
-                });*/
-
-
-
+            favorites = favorites.concat(response);
         }
     })
 };
@@ -527,24 +503,81 @@ function resetpassword(){
     })
 }
 
-function checkFavorite(food,index){
-    var fav = null;
-    $.ajax({
-        url: nodeURL + 'checkfavorite',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            user :sessionStorage.getItem('user'),
-            food : food
-
-        },
-
-        success: function (response) {
-            if(response.favorite)
-                $("#favoriteIcon" + index).addClass("checked");
-            else
-                $("#favoriteIcon" + index).remove("checked");
-
+function starFavorite(food,foodindex, index){
+   // console.log(favorites);
+    setTimeout(function star(){
+    for(var i = 0 ; i<favorites.length; i++)
+    {
+        if(food == favorites[i]["Food Name"])
+        {
+           
+            $("#favoriteIcon-" + foodindex).addClass("checked");
         }
-    })
+    }
+    for(var i = 0 ; i<favoritesAdded.length; i++)
+    {
+        if(food == favoritesAdded[i]["Food Name"])
+        {
+           
+            $("#favoriteIcon-" + foodindex).addClass("checked");
+        }
+    }
+    },2000)           
+
+}
+
+function displayFavorites()
+{
+    var display = favorites;
+
+    for(var i = 0; i<display.length; i++)
+        {
+            for(j = 0; j<favoritesRemoved.length; j++)
+            {
+                if(display[i]["Food Name"]== favoritesRemoved[j])
+                {
+                    display.splice(i,1);
+                    break;
+                }
+            }
+        }
+    
+    //display = display.concat(favoritesAdded);
+    console.log(display);
+      $('#favoriteTable tbody').empty();
+            $(display).each(function(i){
+
+              var id = "favListIcon"+i; 
+               $('#favoriteTable')
+              .append($('<tr>')
+              .append($('<td>').html(display[i]["Food Name"]),
+               $('<td>').html(display[i]["Protein"]),
+               $('<td>').html(display[i]["Fat"]),
+               $('<td>').html(display[i]["Carbohydrate"]),
+               $('<td>').html(display[i]["Total Sugars"]),
+               $('<td>')
+              .append($('<span>').addClass("fa fa-star checked").attr("id", id).click( ()=> {  removeFavorite(display[i]['Food Name']) }))
+              ))
+                
+        })
+        console.log(favoritesAdded);
+        $(favoritesAdded).each(function(j){
+            console.log('food');
+            console.log(i);
+            var id = "favListIcon"+i; 
+             $('#favoriteTable')
+            .append($('<tr>')
+            .append($('<td>').html(favoritesAdded[j]["Food Name"]),
+             $('<td>').html(favoritesAdded[j]["Protein (g)"]),
+             $('<td>').html(favoritesAdded[j]["Fat (g)"]),
+             $('<td>').html(favoritesAdded[j]["Carbohydrate (g)"]),
+             $('<td>').html(favoritesAdded[j]["Total sugars (g)"]),
+             $('<td>')
+            .append($('<span>').addClass("fa fa-star checked").attr("id", id).click( ()=> {  removeFavorite(favoritesAdded[j]['Food Name']) }))
+            ))
+              
+      })
+
+
+
 }

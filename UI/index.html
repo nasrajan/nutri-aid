@@ -195,7 +195,7 @@
                 </li>
                 <li class="nav-item">
                     <a aria-controls="messages" aria-selected="false" class="nav-link" data-toggle="tab"
-                       href="#messages" id="messages-tab" role="tab">
+                       href="#messages" id="messages-tab" role="tab" onclick="displayFavorites()">
                         My Favorites
                     </a>
                 </li>
@@ -338,11 +338,13 @@
                         <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Security Question 1</span><br>
                         
                         <select id="q1" style="width:266px; font-family:Verdana, Geneva, Tahoma, sans-serif;">
-                            <option>What is your father's middle name?</option>
-                            <option >What is your mothers's maiden name?</option>
+                            <option>What is your father`s middle name?</option>
+                            <option >What is your mother`s maiden name?</option>
                             <option >How many siblings do you have?</option>
                         </select><br>
                         <input id="a1Input"  required size="35" style="margin-top:10px" type="text"> <br><br>
+                        <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;">Security Question 2</span><br>
+
                         <select id="q2" style="width:266px; font-family:Verdana, Geneva, Tahoma, sans-serif;">
                             <option >What city were you born in?</option>
                             <option >What was the name of your first school?</option>
