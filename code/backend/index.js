@@ -15,7 +15,6 @@ var database = require('./database');
 
 
 app.post('/signup',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
     if(error)
       {
@@ -23,7 +22,6 @@ app.post('/signup',function (req, res){
         return;
       }
       var sql = "INSERT INTO LOGIN VALUES(0,'" +req.body.name+ "', '" + req.body.email + "', '"+ req.body.password +"', true)";
-      console.log(sql);
       const data = {
         'authenticated' : ''
       }
@@ -35,10 +33,19 @@ app.post('/signup',function (req, res){
           {
               data.authenticated = 'emailError';
           }
+          else
+            console.log(error);
       }
       else
       {
         data.authenticated = 'true';
+        var sql2 = "INSERT INTO USERS VALUES(0,'" +req.body.question1+ "', '" + req.body.answer1 + "', '"+ req.body.question2 +"', '" + req.body.answer2+ "',0, '" + req.body.email +"')";
+        database.query(sql2, function (error, response) {
+          if (error) 
+          {
+              console.log(error);
+          }
+        })
       }
           
       res.end(JSON.stringify(data));
@@ -50,7 +57,6 @@ app.post('/signup',function (req, res){
 
 
 app.post('/signin',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
     if(error)
       {
@@ -58,7 +64,6 @@ app.post('/signin',function (req, res){
         return;
       }
       var sql = "SELECT EMAIL, PWD FROM LOGIN WHERE EMAIL = '" +req.body.email+ "' AND PWD = '" + req.body.password + "'";
-      console.log(sql);
       database.query(sql, function (error, response) {
         if (error) 
           console.log(error);
@@ -77,8 +82,37 @@ app.post('/signin',function (req, res){
 });
 
 
+
+app.post('/checkfavorite',function (req, res){
+  const data = {
+    'favorite' : false
+  }
+
+  database.getConnection(function(error){
+    if(error)
+      {
+        console.log(error);
+        return;
+      }
+      var sql = "SELECT FOOD FROM FAVORITES WHERE EMAIL = '" +req.body.user+ "' AND FOOD = '" + req.body.food + "'";
+      database.query(sql, function (error, response) {
+        if (error) 
+          console.log(error);
+        if(response.length >= 1) 
+          data.favorite = true;
+        else
+          data.favorite = false;
+     
+     
+      res.end(JSON.stringify(data));
+      });
+    }
+  )
+  
+});
+
+
 app.post('/search',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
     if(error)
       {
@@ -86,11 +120,9 @@ app.post('/search',function (req, res){
         return;
       }
       var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
-      console.log(sql)
       database.query(sql, function (error, response) {
         if (error) 
           console.log(error);
-        console.log(response);
       res.end(JSON.stringify(response));
       });
     }
@@ -99,7 +131,6 @@ app.post('/search',function (req, res){
 });
 
 app.post('/getpreferences',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
         if(error)
         {
@@ -109,11 +140,9 @@ app.post('/getpreferences',function (req, res){
         var sql = "SELECT login.email, users_diet_preferences.id, nutrition_name, nutrition_value FROM login, users_diet_preferences\n" +
             "\tWHERE login.id=users_diet_preferences.users_id AND login.email='" + req.body.email + "'";
        // var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` LIKE '%"+ req.body.search+ "%'";
-        console.log(sql);
         database.query(sql, function (error, response) {
           if (error)
             console.log(error);
-          console.log(JSON.stringify(response));
           res.end(JSON.stringify(response));
         });
       }
@@ -121,9 +150,7 @@ app.post('/getpreferences',function (req, res){
 
 });
 app.post('/savepreferences',function (req, res){
-  console.log('save preferences');
-  console.log(req.body);
-  
+
   database.getConnection(function(error){
         if(error)
         {
@@ -132,7 +159,6 @@ app.post('/savepreferences',function (req, res){
         }
         var id = null;
         var sql =  "SELECT ID FROM LOGIN WHERE EMAIL = '" + req.body.user + "'";
-        console.log(sql);
         database.query(sql, function (error, response) {
           if (error)
             console.log(error);    
@@ -140,7 +166,6 @@ app.post('/savepreferences',function (req, res){
         
         //Water
         var sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'water',"+req.body.water+")";
-        console.log(sql);
         database.query(sql, function (error, response) {
           //Protein
           sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'protein',"+req.body.protein+")";
@@ -194,18 +219,84 @@ app.post('/savepreferences',function (req, res){
 
 
 });
-
-
-app.post('/favorite',function (req, res){
-  console.log(req.body);
+app.post('/securityquestions',function (req, res){
   database.getConnection(function(error){
     if(error)
       {
         console.log(error);
         return;
       }
-      var sql = "INSERT INTO FAVORITES VALUES ('" + req.body.user +"','" + req.body.food +"')";
-      console.log(sql)
+      var sql = "SELECT sec_ques1, sec_ques2 FROM USERS WHERE EMAIL = '" + req.body.email + "'";
+      database.query(sql, function (error, response) {
+        if (error) 
+          console.log(error);
+        res.end(JSON.stringify(response));
+      });
+    }
+  )
+  
+});
+
+app.post('/checksecurity',function (req, res){
+  const data = {
+    'authenticated' : ''
+  }
+  database.getConnection(function(error){
+    if(error)
+      {
+        console.log(error);
+        return;
+      }
+      var sql = "SELECT sec_ans1, sec_ans2 FROM USERS WHERE EMAIL = '" + req.body.email + "'";
+      database.query(sql, function (error, response) {
+        if (error) 
+          console.log(error);
+        if(response.length==1) 
+        {
+          data.authenticated = true;
+        }
+        else
+          data.authenticated = false;
+      
+          console.log(data);
+        res.end(JSON.stringify(data));
+      });
+    }
+  )
+  
+});
+
+
+
+app.post('/resetpassword',function (req, res){
+ 
+  database.getConnection(function(error){
+    if(error)
+      {
+        console.log(error);
+        return;
+      }
+      var sql = "UPDATE LOGIN SET pwd = '" +req.body.password + "' WHERE EMAIL = '"  + req.body.email + "'";
+      database.query(sql, function (error, response) {
+        if (error) 
+          console.log(error);
+        
+        res.end(JSON.stringify(response));
+      });
+    }
+  )
+  
+});
+
+
+app.post('/favorite',function (req, res){
+  database.getConnection(function(error){
+    if(error)
+      {
+        console.log(error);
+        return;
+      }
+      var sql = "INSERT INTO FAVORITES VALUES ('" + req.body.user +"','" + req.body.food +"'," + req.body.index +")";
       database.query(sql, function (error, response) {
         if (error) 
           console.log(error);
@@ -217,7 +308,6 @@ app.post('/favorite',function (req, res){
 });
 
 app.post('/favorite-foods',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
     if(error)
       {
@@ -225,7 +315,6 @@ app.post('/favorite-foods',function (req, res){
         return;
       }
       var sql = "SELECT * FROM FOODS WHERE `FOOD NAME` IN (SELECT FOOD FROM FAVORITES WHERE EMAIL = '" + req.body.email + "')";
-      console.log(sql)
       database.query(sql, function (error, response) {
         if (error) 
           console.log(error);
@@ -238,23 +327,31 @@ app.post('/favorite-foods',function (req, res){
 
 
 app.post('/remove-favorite',function (req, res){
-  console.log(req.body);
   database.getConnection(function(error){
     if(error)
       {
         console.log(error);
         return;
       }
-      var sql = "DELETE FROM FAVORITES WHERE FOOD = '" + req.body.food + "' AND EMAIL = '" + req.body.user + "'";
-      console.log(sql);
-      database.query(sql, function (error, response) {
-        if (error) 
-          console.log(error);
-        res.end();
-      });
-    }
-  )
+      var sql = "SELECT REC_INDEX FROM FAVORITES WHERE FOOD = '" + req.body.food + "' AND EMAIL = '" + req.body.user + "'";
+     database.query(sql, function (error, response) {
+       if(error)
+          console.log(error)
+        else
+        {
+          var sql2 = "DELETE FROM FAVORITES WHERE FOOD = '" + req.body.food + "' AND EMAIL = '" + req.body.user + "'";
+          database.query(sql2, function (err, rs) {
+            if (err) 
+              console.log(err);
+           // console.log(response);
+         //   res.end();
+            
+            res.end(JSON.stringify(response[0]));
+          });
+        }
+      })
   
+});
 });
 
 //app.listen(3001);
