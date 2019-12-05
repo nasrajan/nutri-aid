@@ -433,6 +433,7 @@ function retrieveFavorites()
 
 function forgotpassword()
 {
+    
     console.log('forgot password');
 
     $("#signinModal").modal('hide');
@@ -454,13 +455,12 @@ function forgotpassword()
 }
 
 function checksecurity(){
-    console.log('clicked');
     $.ajax({
         url: nodeURL + 'checksecurity',
         type: 'POST',
         dataType: 'json',
         data: {
-            email :document.getElementById('signinEmailInput').value,
+            email :document.getElementById('sqEmailInput').value,
             ans1 : document.getElementById('s1ansInput').value,
             ans2 : document.getElementById('s2ansInput').value,
             ques1 : document.getElementById('sq1').innerHTML,
@@ -495,9 +495,12 @@ function resetpassword(){
         },
 
         success: function (response) {
+            document.getElementById('resetAlert').innerHTML = "Password Successfully Reset";
 
-            $("#resetpasswordModal").modal('hide');
-            window.location = "index.html"
+            setTimeout(function(){
+                 $("#resetpasswordModal").modal('hide');
+                 window.location = "index.html";
+            },1000)
 
         }
     })
@@ -579,5 +582,40 @@ function displayFavorites()
       })
 
 
+
+}
+
+function checksecurityemail()
+{
+    console.log('check security');
+    console.log(document.getElementById('sqEmailInput').value);
+   $.ajax({
+        url: nodeURL + 'securityquestions',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+             email :document.getElementById('sqEmailInput').value
+         },
+        success: function (response) {
+        if(response.length==1)
+        {
+            document.getElementById('sq1').innerHTML = response[0].sec_ques1;
+            document.getElementById('sq2').innerHTML = response[0].sec_ques2;
+            $("#forgotpassEmailModal").modal('hide');
+            $("#forgotpasswordModal").modal('show');
+        }
+       else{
+            document.getElementById('forgotpassEmailAlert').innerHTML = "No existing account with this email";
+        }
+        }
+    })
+                  
+
+}
+
+function forgotpassEmail()
+{
+    $("#signinModal").modal('hide');
+    $("#forgotpassEmailModal").modal('show');
 
 }

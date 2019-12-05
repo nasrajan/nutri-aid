@@ -25,7 +25,6 @@ app.post('/signup',function (req, res){
   database.getConnection(function(error, connection){
     if(error)
       {
-        console.log("showing error")
         console.log(error);
         return;
 
@@ -207,6 +206,7 @@ app.post('/savepreferences',function (req, res){
 
 });
 app.post('/securityquestions',function (req, res){
+  
   database.getConnection(function(error, connection){
     if(error)
       {
@@ -226,6 +226,7 @@ app.post('/securityquestions',function (req, res){
 });
 
 app.post('/checksecurity',function (req, res){
+  console.log(req.body);
   const data = {
     'authenticated' : ''
   }
@@ -235,10 +236,11 @@ app.post('/checksecurity',function (req, res){
         console.log(error);
         return;
       }
-      var sql = "SELECT sec_ans1, sec_ans2 FROM USERS WHERE EMAIL = '" + req.body.email + "'";
+      var sql = "SELECT sec_ans1, sec_ans2 FROM USERS WHERE EMAIL = '" + req.body.email + "' AND sec_ans1 = '" + req.body.ans1 + "' AND sec_ans2 = '" + req.body.ans2 + "'";
       connection.query(sql, function (error, response) {
         if (error) 
           console.log(error);
+        console.log(response);
         if(response.length==1) 
         {
           data.authenticated = true;
@@ -302,9 +304,7 @@ app.post('/favorite-foods',function (req, res){
 
 
 app.post('/updatedb',function (req, res){
-  console.log('received request for update');
-  console.log(req.body);
-  
+ 
 
   database.getConnection(function(error, connection){
     if(error)

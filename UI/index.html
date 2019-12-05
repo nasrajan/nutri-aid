@@ -395,7 +395,7 @@
 
                         <p class="alertMessage" id="signinAlertMessage" style="margin-left:4%"></p>
 
-                        <a href="#forgotpasswordModal" style="margin-left:30%" onclick="forgotpassword()">Forgot Password?</a><br>
+                        <a href="#forgotpassEmailModal" style="margin-left:30%" onclick="forgotpassEmail()" >Forgot Password?</a><br>
 
                         <!--                               <a href="signup.html" style="margin-left:15%" >Don't Have an Account?</a>
                          -->                            </form>
@@ -436,6 +436,33 @@
         </div>
     </div>
 
+    <div aria-hidden="true" aria-labelledby="forgotpassEmailModalCenterTitle" class="modal fade" id="forgotpassEmailModal" role="dialog"
+    tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered" role="document" style="width:360px">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="forgotpassEmailModal" style="color:#138d75">Please Enter Your Email</h5>
+               <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <form action="javascript:checksecurityemail()">
+                   <span style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #A10115;" id="sqEmail" >Email:</span><br>
+                   <input id="sqEmailInput" required size="35" style="margin-top:10px" type="text" oninput="document.getElementById('forgotpassEmailAlert').innerHTML=''"> <br><br>
+
+                   <p class="alertMessage" id="forgotpassEmailAlert" style="margin-left:4%"></p>
+
+                   <button class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 " type="submit">Submit
+                   </button>
+                   </form>
+           </div>
+       
+           
+
+       </div>
+   </div>
+</div>
     <div aria-hidden="true" aria-labelledby="resetpasswordModalCenterTitle" class="modal fade" id="resetpasswordModal" role="dialog"
     tabindex="-1">
    <div class="modal-dialog modal-dialog-centered" role="document" style="width:360px">
@@ -488,6 +515,8 @@
         <input id="resetconfirmPasswordInput" oninput="confirmPassword('reset')" required size="35"
                style="margin-top:10px" type="password"> <br><br>
         <p id="resetmatchPassword"></p>
+        <p id="resetAlert" style="text-align : center; color : #138d75"></p>
+
             <button class="btn" style="margin-left:37%; background-color: #138d75 ;color:white ; border-color:#A10115 " type="submit">Submit
             </button>
             </form>
@@ -716,9 +745,7 @@
 
 <script>
     function checkPassword(reset = "") {
-        console.log(reset);
         var password =  document.getElementById(reset + "passwordInput").value;
-        console.log(password);
         var email = document.getElementById('emailInput').value;
         var secure = 0;
         if (password.length >= 8) {
@@ -773,7 +800,6 @@
             document.getElementById(reset + 'security-message').style.color = 'green';
 
         }
-        console.log(document.getElementById(reset + 'security-value').value);
         document.getElementById(reset + 'security-value').value = secure;
 
 
