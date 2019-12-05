@@ -149,55 +149,60 @@ app.post('/savepreferences',function (req, res){
           if (error)
             console.log(error);    
         id = response[0].ID;
-        
-        //Water
-        var sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'water',"+req.body.water+")";
-        connection.query(sql, function (error, response) {
-          //Protein
-          sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'protein',"+req.body.protein+")";
+        var sql = "DELETE FROM users_diet_preferences WHERE users_id="+id;
           connection.query(sql, function (error, response) {
-            //Fat
-            sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'fat',"+req.body.fat+")";
+            if (error)
+              console.log(error);
+
+            //Water
+            var sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'water'," + req.body.water + ")";
             connection.query(sql, function (error, response) {
-              //Carbohydrates
-              sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'carbohydrate',"+req.body.water+")";
+              //Protein
+              sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'protein'," + req.body.protein + ")";
               connection.query(sql, function (error, response) {
-                //Energy
-                sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'energy',"+req.body.calories+")";
+                //Fat
+                sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'fat'," + req.body.fat + ")";
                 connection.query(sql, function (error, response) {
-                  //Starch
-                  sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'starch',"+req.body.starch+")";
+                  //Carbohydrates
+                  sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'carbohydrate'," + req.body.water + ")";
                   connection.query(sql, function (error, response) {
-                    //Sugars
-                    sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'totalsugars',"+req.body.sugar+")";
+                    //Energy
+                    sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'energy'," + req.body.calories + ")";
                     connection.query(sql, function (error, response) {
-                      //Glucose
-                      sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'glucose',"+req.body.glucose+")";
+                      //Starch
+                      sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'starch'," + req.body.starch + ")";
                       connection.query(sql, function (error, response) {
-                        //Cholestrol
-                        sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'cholestrol',"+req.body.cholestrol+")";
+                        //Sugars
+                        sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'totalsugars'," + req.body.sugar + ")";
                         connection.query(sql, function (error, response) {
-                          //Calcium
-                          sql = "INSERT INTO users_diet_preferences VALUES(0," + id+ ", 'calcium',"+req.body.calcium+")";
+                          //Glucose
+                          sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'glucose'," + req.body.glucose + ")";
                           connection.query(sql, function (error, response) {
-                            //Iron
-                            sql = "INSERT INTO users_diet_preferences VALUES(0," +id + ", 'iron',"+req.body.iron+")";
+                            //Cholestrol
+                            sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'cholestrol'," + req.body.cholestrol + ")";
                             connection.query(sql, function (error, response) {
-                              if (error)
-                                console.log(error);    
-                                connection.release();
-                                res.end();
-                            });          
-                          });       
-                        });         
-                      });        
-                    });          
-                  });       
-                });          
-              });         
-            });        
-          });        
-        });
+                              //Calcium
+                              sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'calcium'," + req.body.calcium + ")";
+                              connection.query(sql, function (error, response) {
+                                //Iron
+                                sql = "INSERT INTO users_diet_preferences VALUES(0," + id + ", 'iron'," + req.body.iron + ")";
+                                connection.query(sql, function (error, response) {
+                                  if (error)
+                                    console.log(error);
+                                  connection.release();
+                                  res.end();
+                                });
+                              });
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
       });
      
       }

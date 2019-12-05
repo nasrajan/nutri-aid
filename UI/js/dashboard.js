@@ -366,6 +366,19 @@ function savepreferences(){
         calcium : document.getElementById('calciumAmount').value,
         iron : document.getElementById('ironAmount').value,
     }
+    var nutrition = [];
+    nutrition.push(parseInt(data['water']));
+    nutrition.push(parseInt(data['protein']));
+    nutrition.push(parseInt(data['fat']));
+    nutrition.push(parseInt(data['carbohydrates']));
+    nutrition.push(parseInt(data['calories']));
+    nutrition.push(parseInt(data['starch']));
+    nutrition.push(parseInt(data['sugar']));
+    nutrition.push(parseInt(data['glucose']));
+    nutrition.push(parseInt(data['cholestrol']));
+    nutrition.push(parseInt(data['calcium']));
+    nutrition.push(parseInt(data['iron']));
+
     $.ajax({
         url: nodeURL + "savepreferences",
         type: 'POST',
@@ -373,9 +386,27 @@ function savepreferences(){
 
         data: JSON.stringify(data),
     
-        success: function (data) {
+        success: function (res) {
 
-           // console.log("Successfully Saved Preferences");
+            $.ajax({
+                url: pythonURL,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({nutrition: nutrition}),
+                success: function(res) {
+                    // console.log(res);
+                }
+
+            }).done(function(res){
+
+                recommendations = JSON.parse(res);
+                $('#dashboard_recommend').empty();
+                displayRecommendations(JSON.parse(res));
+
+                loadStatistics();
+
+            });
+
         }
     })
 }
