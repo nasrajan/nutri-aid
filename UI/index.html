@@ -266,6 +266,8 @@
                     <th>Fat</th>
                     <th>Carbohydrates</th>
                     <th>Sugar</th>
+                   <!-- <th>Favorites</th> -->
+
                 </thead>
 
             </table>
@@ -1008,8 +1010,11 @@
                if ( $.fn.dataTable.isDataTable( '#searchResults' ) ) {
                    $('#searchResults').DataTable().destroy();
                }
+
+
                $("#searchResults").DataTable({
                    data: response,
+
                    "columns": [
                        { "data": "Food Name" },
                        { "data": "Protein" },
@@ -1017,14 +1022,43 @@
                        { "data": "Carbohydrate" },
                        { "data": "Total Sugars" }
 
+
                    ]
 
+
                });
-             /*  for(var i = 0; i<response.length; i++)
-               {
-                 $('#searchResults').append('<tbody><tr><td>'+response[i]["Food Name"]+'</td><td>' + response[i]["Protein"] + '</td><td>' + response[i]["Fat"] +'</td><td>' + response[i]["Carbohydrate"] + '</td><td>' + response[i]["Total Sugars"] + '</tbody></td></tr>');
+
+
+
+               if (sessionStorage.getItem('user')) {
+                  // console.log(favorites);
+                   $("#searchResults").DataTable().rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+
+                       var data = this.data();
+                       var fname = data["Food Name"].split(" ")[0].replace(',', '');
+
+                      data['Food Name'] +=  '<span class="fa fa-star"  id="favIcon-' +rowIdx  + '"></span>';
+                      // $str = $('<span>').attr("id","favIcon-" + rowIdx).click( ()=> { favoriteFood('search',data,rowIdx)}).addClass("fa fa-star");
+
+                      // content = $(str).clone().wrap('<p/>').parent().html();
+
+                          // .click( ()=> { favoriteFood('search',val,fname)}).addClass("fa fa-star"));
+                       $(favorites).each(function(i, v){
+                           if (v['Food Name'] == data['Food Name']) {
+                               console.log(data['Food Name']);
+                               data['Food Name'] = data['Food Name'] + ' _____test';
+                           }
+                       });
+                       this.data(data);
+                   } );
                }
-            */
+               $("span[id^=favIcon").click(function(){
+                   alert($(this).attr('id'));
+               });
+            /*
+
+            .append($('<span>').attr("id","favIcon-" + fname).click( ()=> { favoriteFood(index,val,fname)}).addClass("fa fa-star"))
+             */
 
           })
         }})
