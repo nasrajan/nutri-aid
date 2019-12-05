@@ -1035,25 +1035,65 @@
                    $("#searchResults").DataTable().rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 
                        var data = this.data();
-                       var fname = data["Food Name"].split(" ")[0].replace(',', '');
-
-                      data['Food Name'] +=  '<span class="fa fa-star"  id="favIcon-' +rowIdx  + '"></span>';
+                    
+                       var fname = data["Food Name"];
+                       
+                      
+                      // data['Food Name'] +=  '<span class="fa fa-star"  id="favIcon-' +rowIdx  + '"></span>';
                       // $str = $('<span>').attr("id","favIcon-" + rowIdx).click( ()=> { favoriteFood('search',data,rowIdx)}).addClass("fa fa-star");
 
                       // content = $(str).clone().wrap('<p/>').parent().html();
 
                           // .click( ()=> { favoriteFood('search',val,fname)}).addClass("fa fa-star"));
+                       /*setTimeout(function(){   
                        $(favorites).each(function(i, v){
-                           if (v['Food Name'] == data['Food Name']) {
-                               console.log(data['Food Name']);
-                               data['Food Name'] = data['Food Name'] + ' _____test';
+                           if (v['Food Name'] == fname) {
+                               $("#favIcon-"+rowIdx).addClass('checked');
                            }
                        });
+                       $(favoritesAdded).each(function(i, v){
+                           if (v['Food Name'] == fname) {
+                               $("#favIcon-"+rowIdx).addClass('checked');
+                           }
+                       });},2000);*/
+
+                       var isfavorite =  $(favorites).each(function(i, v){
+                           if (v['Food Name'] == fname) {
+                               console.log(data['Food Name']);
+                              //data['Food Name'] = data['Food Name'] + ' ___test';
+                              data['Food Name'] +=  '<span class="fa fa-star checked"   id="favIcon-' +rowIdx  + '"></span>';
+
+                               return true;
+                           }
+                       });
+                       
+                       var isfavorite2 =  $(favoritesAdded).each(function(i, v){
+                           if (v['Food Name'] == fname) {
+                               console.log(data['Food Name']);
+                              //data['Food Name'] = data['Food Name'] + ' ___test';
+                              data['Food Name'] +=  '<span class="fa fa-star checked"   id="favIcon-' +rowIdx  + '"></span>';
+
+                                return true;
+                           }
+                       });
+                      
+                      if (!isfavorite && !isfavorite2)
+                          data['Food Name'] +=  '<span class="fa fa-star"  id="favIcon-' +rowIdx  + '"></span>';
+                  //    else
+                   //      data['Food Name'] +=  '<span class="fa fa-star checked"   id="favIcon-' +rowIdx  + '"></span>';
+
                        this.data(data);
                    } );
+                  // starFavorite(data["Food Name"],fname,'search');
+
                }
                $("span[id^=favIcon").click(function(){
-                   alert($(this).attr('id'));
+                   //console.log('clicked',$(this).attr('id'));
+                   var foodindex = ($(this).attr('id')).split('-')[1];
+                   //console.log($("#searchResults").DataTable().rows(foodindex).data()[0]);
+                   var data =$("#searchResults").DataTable().rows(foodindex).data()[0];
+                   data["Food Name"] = data["Food Name"].split("<span")[0];
+                   favoriteFood('search',data,foodindex);
                });
             /*
 
