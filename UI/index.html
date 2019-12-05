@@ -72,8 +72,8 @@
             <a aria-controls="nav-dashboard" aria-selected="false" class="nav-item text-white" data-toggle="tab"
                href="#dashboard"
                id="nav-dashboard-tab" role="tab">Dashboard</a>
-            <!--<a aria-controls="nav-initialsurvey" aria-selected="false" class="nav-item text-white" data-target="#initialsurveyModal" data-toggle="modal"
-               id="nav-initialsurvey-tab"  role="modal" >Initial Survey</a> -->
+             <a aria-controls="nav-initialsurvey" aria-selected="false" class="nav-item text-white" data-target="#initialsurveyModal" data-toggle="modal"
+               id="nav-initialsurvey-tab"  role="modal" >Take Survey</a>
             <a aria-controls="nav-signup" aria-selected="false" class="nav-item text-white" data-target="#signupModal"
                data-toggle="modal"
                id="nav-signup-tab" role="modal">Sign Up</a>
@@ -532,7 +532,7 @@
             <div class="modal-content" style="width: 1000px; height: 900px;">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="initialsurveyModalId" style="color:#138d75">Initial Survey</h5>
+                    <h5 class="modal-title" id="initialsurveyModalId" style="color:#138d75">Nutrition Survey</h5>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -875,6 +875,10 @@
                     $("#nav-dashboard-tab").show();
                     $("#nav-signout-tab").show();
                     $("#nav-signin-tab").hide();
+
+
+                    $("#nav-signup-tab").hide();
+                    $("#nav-initialsurvey-tab").show();
 
                    // var preferences = checkPreferences(data.email);
                     //console.log(preferences);

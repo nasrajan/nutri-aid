@@ -19,6 +19,7 @@ $(document).ready(function(){
         $("#nav-signout-tab").show();
         $("#nav-signin-tab").hide();
         $("#nav-signup-tab").hide();
+        $("#nav-initialsurvey-tab").show();
 
 
 
@@ -26,6 +27,7 @@ $(document).ready(function(){
         $("#nav-dashboard-tab").hide();
         $("#nav-signout-tab").hide();
         $("#nav-signin-tab").show();
+        $("#nav-initialsurvey-tab").hide();
     }
     //$("#forgotpasswordModal").hide();
 
