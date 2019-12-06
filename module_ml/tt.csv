@@ -37,7 +37,7 @@
 35,"Apricots, stewed without sugar, weighed with stones",82.1,0.7,0.1,5.8,25,0,5.8,1.5,0,12,0.7
 36,"Arrowhead, boiled in unsalted water",75.5,4.2,0.3,17.8,91,N,N,N,0,11,2.2
 37,"Arrowhead, raw",70.6,5,0.3,21.5,107,N,N,N,0,13,2.6
-38,Arrowroot,12.2,0.4,0.1,94,355,94,Tr,Tr,,7,2
+38,Arrowroot,12.2,0.4,0.1,94,355,94,Tr,Tr,0,7,2
 39,"Artichoke, globe, base of leaves and heart, boiled in unsalted water",84.4,2.9,0.2,2.7,18,Tr,1.3,0.8,0,44,0.5
 40,"Artichoke, globe, boiled, weighed as served",36.3,1.2,0.1,1.2,8,Tr,0.6,0.3,0,19,0.2
 41,"Artichoke, globe, raw",85.2,2.8,0.2,2.7,18,Tr,1.3,0.8,0,41,0.7
@@ -75,7 +75,7 @@
 73,"Bacon rashers, back, reduced salt, grilled",51.6,24.1,20.6,0,282,0,0,0,74,7,0.7
 74,"Bacon rashers, back, smoked, grilled",50.5,23.4,22.1,0,293,0,0,0,80,7,0.7
 75,"Bacon rashers, back, sweetcure, grilled",52.8,23.8,17.4,1.6,258,0,1.6,0,63,7,0.8
-76,"Bacon rashers, back, 'tendersweet', grilled",55.4,26.4,11.9,Tr,213,0,Tr,,43,8,0.8
+76,"Bacon rashers, back, 'tendersweet', grilled",55.4,26.4,11.9,Tr,213,0,Tr,0,43,8,0.8
 77,"Bacon rashers, middle, fried in corn oil",43.6,23.4,28.5,0,350,0,0,0,84,10,0.7
 78,"Bacon rashers, middle, grilled",47.8,24.8,23.1,0,307,0,0,0,83,8,0.7
 79,"Bacon rashers, middle, raw",59.9,15.2,20,0,241,0,0,0,58,6,0.4
@@ -103,8 +103,8 @@
 101,"Barcelona nuts, kernel only, weighed with shells",3.5,6.8,39.7,3.2,397,1.1,2.1,0,0,110,1.9
 102,"Barley water, diluted",95,0.1,Tr,4.7,18,0.4,4.3,N,0,1,Tr
 103,"Barley water, undiluted",75.2,0.3,Tr,23.7,90,2.2,21.5,N,0,5,Tr
-104,"Barley, pearl, boiled",69.6,2.7,0.6,27.6,120,27.6,Tr,Tr,,7,1
-105,"Barley, pearl, raw",10.6,7.9,1.7,83.6,360,83.6,Tr,Tr,,20,3
+104,"Barley, pearl, boiled",69.6,2.7,0.6,27.6,120,27.6,Tr,Tr,0,7,1
+105,"Barley, pearl, raw",10.6,7.9,1.7,83.6,360,83.6,Tr,Tr,0,20,3
 106,"Basil, dried, ground",6.4,14.4,4,43.2,251,Tr,N,N,0,2110,42
 107,"Basil, fresh",88,3.1,0.8,5.1,40,Tr,N,N,0,250,5.5
 108,"Bass, sea, flesh only, baked",69,23.2,6.8,0,154,0,0,0,49,31,0.27
@@ -347,7 +347,7 @@
 345,"Black gram, urad gram, whole, dried, boiled in unsalted water",71.3,7.8,0.4,13.6,89,13,0.3,Tr,0,49,2
 346,"Black gram, urad gram, whole, dried, raw",11.5,24.9,1.4,40.8,275,37.6,1.3,0.1,0,150,6.3
 347,"Black pudding, dry-fried",44.3,10.3,21.5,16.6,297,16.4,0.2,0.1,68,120,12.3
-348,"Black pudding, raw",50.3,9.1,20.6,14.8,277,14.6,0.2,,43,110,10.9
+348,"Black pudding, raw",50.3,9.1,20.6,14.8,277,14.6,0.2,0,43,110,10.9
 349,"Blackberries, raw",87.5,1.1,0.2,5.6,27,0,5.6,2.6,0,24,0.31
 350,"Blackberries, stewed with sugar",78.9,0.7,0.2,13.8,56,0,13.8,2.5,0,32,0.5
 351,"Blackberries, stewed without sugar",87.2,0.8,0.2,4.4,21,0,4.4,2.1,0,35,0.6
@@ -372,7 +372,7 @@
 370,"Brain, lamb, boiled",77,11.6,8.8,0,126,0,0,0,2200,11,1.4
 371,"Bran, wheat",10.4,14.8,5.5,20.6,186,18.3,2.3,Tr,0,65,8.6
 372,"Brandy snaps, homemade",3.2,2.8,22.5,72.1,489,22,50.1,6.3,57.4,39,1.13
-373,Brawn,72,12.4,11.5,0,153,0,0,,52,38,1
+373,Brawn,72,12.4,11.5,0,153,0,0,0,52,38,1
 374,"Brazil nuts, kernel only",2.8,14.3,68.2,3.1,683,0.7,2.4,0,0,170,2.5
 375,"Brazil nuts, kernel only, weighed with shells",1.3,6.5,31.4,1.4,314,0.3,1.1,0,0,78,1.1
 376,"Bread pudding, homemade",32.3,5.9,7.7,48,289,14.7,33.3,8.9,30.1,144,1.42
@@ -458,7 +458,7 @@
 456,"Brussels sprouts, raw",84.3,3.5,1.4,4.1,42,0.8,3.1,1.1,0,26,0.7
 457,"Bubble and squeak, fried in rapeseed oil, homemade",76.2,1.7,9,10.1,126,8.5,1.6,0.7,0,31,0.39
 458,"Bubble and squeak, fried in sunflower oil, homemade",76,1.7,9.1,10.2,128,8.6,1.6,0.7,0,30,0.39
-459,"Buckwheat, groats",13.2,8.1,1.5,84.9,364,84.5,0.4,Tr,,12,2
+459,"Buckwheat, groats",13.2,8.1,1.5,84.9,364,84.5,0.4,Tr,0,12,2
 460,"Build up, powder, shake, assorted flavours",4.2,20.5,0.7,63,325,Tr,62,N,12,725,13.38
 461,"Build-up powder, soup, assorted flavours",3,14.4,14.9,57.3,407,26.4,14.3,N,N,763,10.5
 462,"Burger, beef, 62-85% beef, raw",63.3,15.9,15.2,4.9,219,2.2,2.7,N,65.7,32,2.1
@@ -591,7 +591,7 @@
 589,"Cheese spread, plain",58.1,11.3,18.6,6.5,237,0,6.5,0,54.7,498,Tr
 590,"Cheese spread, plain, reduced fat",61.4,15,7.2,7.9,154,0.6,7.3,0,N,485,0.29
 591,"Cheese straws/twists, retail",4.7,14.1,30.3,48.3,510,46.6,1.6,Tr,71.4,233,1.15
-592,"Cheese, Brie, rind only",51.8,16.5,26.4,,304,,,,,,
+592,"Cheese, Brie, rind only",51.8,16.5,26.4,0,304,0,0,0,0,0,0
 593,"Cheese, Brie, with outer rind removed",48.7,20.3,29.1,Tr,343,0,Tr,0,93,256,Tr
 594,"Cheese, Caerphilly",41.8,23.2,31.3,0.1,375,0,0.1,0,90,550,0.7
 595,"Cheese, Camembert",54.4,21.5,22.7,Tr,290,0,Tr,0,71.8,235,Tr
@@ -731,7 +731,7 @@
 729,"Chicory, pale variety, boiled in unsalted water",94.8,0.6,0.3,2.1,7,0.1,0.5,0.2,0,20,0.4
 730,"Chicory, pale variety, raw",94.3,0.5,0.6,2.8,11,0.2,0.7,0.3,0,21,0.4
 731,"Chilli con carne, homemade",74.3,9.2,7.5,4.4,120,1.3,2.9,1.1,23.8,21,1.11
-732,"Chilli con carne, retail, reheated",76.4,7.7,4.3,7.1,96,4.4,2.7,,N,42,1.5
+732,"Chilli con carne, retail, reheated",76.4,7.7,4.3,7.1,96,4.4,2.7,0,N,42,1.5
 733,"Chilli con carne, retail, reheated, with rice",72.6,5.8,2.7,18.1,116,16.5,1.6,N,N,33,0.92
 734,Chilli powder,10.8,13.5,14.3,N,N,N,7.2,2.1,0,330,17.3
 735,Chilli sauce,82.1,1.3,0.8,7.3,40,0.4,6.9,3.1,0,17,2.8
@@ -849,7 +849,7 @@
 847,Cornetto type ice cream cone,41.9,3.5,14.4,39.6,292,11.7,27.9,2,5.7,62,1.53
 848,"Cornish pasty, homemade",47.2,6.7,19.2,27.8,287,22.4,2.3,0.9,13.3,56,0.85
 849,"Cornish pasty, retail",47.3,7,17.8,24,278,21.9,2.1,0.5,13,47,0.99
-850,"Cornmeal, sifted",12.2,9.4,3.3,73.1,368,N,N,N,,3,1.3
+850,"Cornmeal, sifted",12.2,9.4,3.3,73.1,368,N,N,N,0,3,1.3
 851,"Coronation chicken, homemade",47.4,16.6,31.4,3.5,362,0.1,3.4,1.1,82.4,10,0.71
 852,"Coronation chicken, reduced fat, homemade",63,16.6,14.8,4.2,216,1.4,2.9,0.8,69.8,12,0.77
 853,"Courgette, boiled in unsalted water",95,1.3,0.3,1.8,15,0.1,1.7,0.4,0,22,0.37
@@ -1160,18 +1160,18 @@
 1158,"Flour, corn",12.5,0.6,0.7,92,354,92,Tr,Tr,0,2,0.1
 1159,"Flour, gari (cassava flour)",9.3,0.7,0.2,95.1,361,90.8,Tr,Tr,0.1,41,2.02
 1160,"Flour, gram",9,22.7,5.4,57,353,51.5,2.3,Tr,0,58,2.63
-1161,"Flour, millet, foxtail",13.3,5.8,1.7,75.4,354,N,N,N,,40,N
-1162,"Flour, rice",11.8,6.4,0.8,80.1,366,80.1,N,N,,24,1.9
+1161,"Flour, millet, foxtail",13.3,5.8,1.7,75.4,354,N,N,N,0,40,N
+1162,"Flour, rice",11.8,6.4,0.8,80.1,366,80.1,N,N,0,24,1.9
 1163,"Flour, rye",10.7,7.3,1.6,73.5,319,72,1.5,Tr,0,33,2.43
 1164,"Flour, soya",5.9,34.3,22.4,18.7,409,12.3,6.4,Tr,0.3,182,8.42
 1165,"Flour, wheat, bread/strong, white",11.7,11.3,1.2,79.2,353,78.7,0.5,Tr,0,134,1.92
 1166,"Flour, wheat, brown",11.6,12.2,2,72.5,339,71.5,1,Tr,0,28,2.38
-1167,"Flour, wheat, brown, bread/strong",11.8,13.4,1.9,72,341,71,1,Tr,,52,2.3
+1167,"Flour, wheat, brown, bread/strong",11.8,13.4,1.9,72,341,71,1,Tr,0,52,2.3
 1168,"Flour, wheat, white, plain, soft",11.6,9.1,1.4,80.9,352,80.3,0.6,Tr,0,96,1.94
 1169,"Flour, wheat, white, self raising",11.3,8.9,1.5,79.6,348,79,0.6,Tr,0,280,1.74
 1170,"Flour, wheat, wholemeal",11.1,11.6,2,69.9,327,68.5,1.4,Tr,0,32,2.47
-1171,"Flour, wheat, wholemeal, bread/strong",11.8,14.2,2.2,66.7,327,65.7,1.1,Tr,,32,3.07
-1172,"Flour, wheat, wholemeal, self raising",11.3,10.8,1.9,69.3,359,68.2,1.1,Tr,,333,2.81
+1171,"Flour, wheat, wholemeal, bread/strong",11.8,14.2,2.2,66.7,327,65.7,1.1,Tr,0,32,3.07
+1172,"Flour, wheat, wholemeal, self raising",11.3,10.8,1.9,69.3,359,68.2,1.1,Tr,0,333,2.81
 1173,"Flying fish, raw",77.5,21,0.3,0,86,0,0,0,N,61,0.8
 1174,Frankfurter,54.2,13.6,25.4,1.1,287,Tr,1.1,0.2,76,12,1.1
 1175,Frankfurter with bun,41.5,10.7,9.8,35.6,264,33.4,2.1,0.2,23.9,130,1.37
@@ -1587,7 +1587,7 @@
 1585,"Loquats, flesh only, raw",88.5,0.7,0.2,6.3,28,0,6.3,2.7,0,20,0.4
 1586,"Lotus tubers, raw",85.1,2.1,0.1,11,51,5.5,5.5,N,0,27,1.2
 1587,Lucozade,81.1,Tr,0,16,60,Tr,11.1,N,0,3,Tr
-1588,"Luncheon meat, Chinese, steamed",57.1,11.9,22.3,10.5,288,N,N,,N,8,1.2
+1588,"Luncheon meat, Chinese, steamed",57.1,11.9,22.3,10.5,288,N,N,0,N,8,1.2
 1589,"Lychees, flesh only, raw, weighed with skin and stone",50.3,0.5,0.1,8.9,36,0,8.9,4.3,0,4,0.3
 1590,"Lychees, raw, flesh only",81.1,0.9,0.1,14.3,58,0,14.3,7,0,6,0.5
 1591,"Macadamia nuts, salted",1.3,7.9,77.6,4.8,748,0.8,4,0.1,0,47,1.6
@@ -1829,12 +1829,12 @@
 1827,"Ovaltine powder, made up with whole milk",78.1,3.8,3.4,13.3,96,3.9,9.4,N,N,196,1.57
 1828,"Ovaltine, powder",2,7.3,1.9,83.1,358,34.8,48.3,N,N,800,14
 1829,"Oxtail, meat only, stewed with added salt",53.9,30.5,13.4,0,243,0,0,0,110,14,3.8
-1830,"Oxtail, meat only, stewed, weighed with fat and bones",20.5,11.6,5.1,0,92,0,0,,N,5,1.4
+1830,"Oxtail, meat only, stewed, weighed with fat and bones",20.5,11.6,5.1,0,92,0,0,0,N,5,1.4
 1831,"Oxtail, raw",68.6,20,10.1,0,171,0,0,0,75,9,2.7
 1832,"Oysters, raw",85.7,10.8,1.3,2.7,65,Tr,Tr,0,57,140,5.7
 1833,"Oysters, raw, weighed with shells",12,1.5,0.2,0.4,9,Tr,Tr,0,8,19,0.8
 1834,"Pak choi, steamed",94.8,1.5,0.1,1.9,14,0.4,1.5,0.8,0,73,0.96
-1835,"Pakora, vegetable, takeaway and restaurant",43.2,8.4,22,16.5,293,15,1.5,0.2,,46,2.45
+1835,"Pakora, vegetable, takeaway and restaurant",43.2,8.4,22,16.5,293,15,1.5,0.2,0,46,2.45
 1836,"Pakora/bhajia, aubergine, fried in vegetable oil, homemade",45.4,7.9,22.5,17.2,294,14,2.1,0.8,0,27,1.13
 1837,"Pakora/bhajia, cauliflower, fried in vegetable oil, homemade",42.1,9.2,23.9,18.2,320,14.5,2.8,0.8,0,32,1.24
 1838,"Pakora/bhajia, onion, fried in vegetable oil, homemade",40.5,11.2,14.7,24.6,270,20.6,3.4,0.8,0,44,1.55
@@ -1896,7 +1896,7 @@
 1894,"Pasta, wholewheat, spaghetti, dried, boiled in unsalted water",63.7,5.2,1.1,27.5,134,27.5,Tr,Tr,0,31,1.48
 1895,"Pasta, wholewheat, spaghetti, dried, raw",9.5,12.6,2.5,68.3,329,64.4,3.9,0.4,0,39,3.25
 1896,Pastichio,66,7,6.3,17.2,150,15.1,2.8,0.6,33.1,83,1.39
-1897,"Pastries, Asian",6.9,6.3,39.1,43,538,20.4,22.6,N,,160,0.9
+1897,"Pastries, Asian",6.9,6.3,39.1,43,538,20.4,22.6,N,0,160,0.9
 1898,"Pastries, chocolate eclairs, cream filled, retail",34.5,6.1,28.5,28.2,387,4.2,24,2.7,136.2,83,1.8
 1899,"Pastries, chocolate eclairs, fresh, homemade",35.1,4.1,24.7,38,381,11.9,26,Tr,90.9,39,0.86
 1900,"Pastries, cream filled, retail",29.8,3.3,27.4,41.4,415,14.1,27.3,2.7,52.3,68,0.47
@@ -1994,7 +1994,7 @@
 1992,"Pickle, sweet",67.8,0.6,0.1,28,111,3.4,24.6,8,0,15,0.6
 1993,"Pie, apple, one crust, homemade",58.3,1.8,9.2,29,198,11,18,1.4,0.6,27,0.37
 1994,"Pie, apple, pastry top and bottom, homemade",48.1,2.9,15.2,32.1,268,18.5,13.6,1.1,1,41,0.54
-1995,"Pie, apple, pastry, double crust, deep filled, retail",46.5,3.3,10.9,38.5,256,20.1,18,1.9,,45,0.3
+1995,"Pie, apple, pastry, double crust, deep filled, retail",46.5,3.3,10.9,38.5,256,20.1,18,1.9,0,45,0.3
 1996,"Pie, apple, pastry, double crust, retail",46.8,3.8,12.9,30.3,245,23.2,7,1.1,Tr,66,0.34
 1997,"Pie, apple, wholemeal, one crust, homemade",57.9,2.3,7.7,29.9,190,11.9,18,1.3,18.5,11,0.52
 1998,"Pie, apple, wholemeal, pastry top and bottom, homemade",47.4,3.6,12.7,33.6,254,19.9,13.7,1,31,15,0.78
@@ -2178,9 +2178,9 @@
 2176,"Pork, spare rib steaks, raw, lean and fat",70.4,18.7,10.4,0,168,0,0,0,66,8,0.8
 2177,"Pork, spare ribs, 'barbecue style', homemade",40.1,20.8,22.3,4.9,302,0.6,5,1.2,69.7,37,1.67
 2178,"Pork, spare ribs, 'barbecue style', homemade, weighed with bone",18.8,9.7,10.4,2.3,142,0.3,2.3,0.6,31.8,17,0.79
-2179,"Pork, spare ribs, 'barbecue style', meat only, reheated,  weighed with bone",17.4,9.2,6,2,98,0.5,1.5,,57,25,0.6
+2179,"Pork, spare ribs, 'barbecue style', meat only, reheated,  weighed with bone",17.4,9.2,6,2,98,0.5,1.5,0,57,25,0.6
 2180,"Pork, spare ribs, 'barbecue style', meat only, retail, reheated",49.6,26.3,17.1,5.8,281,1.4,4.4,N,160,70,1.6
-2181,"Pork, spare ribs, Chinese barbecue, takeaway",49.8,22.1,18.7,,,,,,,48,1.92
+2181,"Pork, spare ribs, Chinese barbecue, takeaway",49.8,22.1,18.7,0,0,0,0,0,0,48,1.92
 2182,"Pork, spare ribs, in black bean sauce, meat and sauce only, homemade",61.5,14.3,14.5,5.8,216,0.7,5.1,0.9,46,24,1.51
 2183,"Pork, spare ribs, in black bean sauce, meat and sauce only, homemade, weighed with bone",35.2,8.2,8.2,3.3,123,0.4,2.9,0.5,25.7,14,0.87
 2184,"Pork, spare ribs, raw, lean and fat",67.3,18.7,13.4,0,195,0,0,0,66,15,0.8
@@ -2742,7 +2742,7 @@
 2740,Tomato juice,93.8,0.8,Tr,3,14,Tr,3,1.4,0,10,0.4
 2741,Tomato ketchup,68,1.6,0.1,28.6,115,1.1,27.5,5.9,0,13,0.3
 2742,Tomato puree,72.5,4.4,0.2,12.9,67,Tr,12.9,5.5,0,45,1.45
-2743,"Tomato sauce, homemade",80.3,2.2,5.5,8.6,89,4.3,4,,10,19,0.6
+2743,"Tomato sauce, homemade",80.3,2.2,5.5,8.6,89,4.3,4,0,10,19,0.6
 2744,"Tomatoes, canned, whole contents",92.9,1.1,0.1,3.8,19,Tr,3.8,1.9,0,11,0.57
 2745,"Tomatoes, cherry, raw",91.4,1.1,0.5,3.6,22,Tr,3.6,1.6,0,10,0.34
 2746,"Tomatoes, standard, fried in corn oil",84.4,0.8,7.7,4.5,89,Tr,4.5,2.1,0,11,0.37
@@ -2770,10 +2770,10 @@
 2768,"Trifle, with Dream Topping",67.5,2.8,5.9,22.1,152,4.5,17.1,2.7,20.5,65,0.31
 2769,"Tripe and onions, stewed, homemade",79.3,8.4,1.4,9.4,93,4.3,4.8,0.8,54.3,123,0.38
 2770,"Tripe, dressed, raw",92.1,7.1,0.5,0,33,0,0,0,64,52,0.2
-2771,"Tripe, dressed, stewed in milk",78.5,14.8,4.5,0,100,0,Tr,,160,150,0.7
+2771,"Tripe, dressed, stewed in milk",78.5,14.8,4.5,0,100,0,Tr,0,160,150,0.7
 2772,"Trout, brown, raw",74.1,19.4,3.8,0,112,0,0,0,N,9,1.5
-2773,"Trout, brown, steamed",70.6,23.5,4.5,0,135,0,0,,97,36,1
-2774,"Trout, brown, steamed, weighed with bones",46.5,15.5,3,0,89,0,0,,64,24,0.7
+2773,"Trout, brown, steamed",70.6,23.5,4.5,0,135,0,0,0,97,36,1
+2774,"Trout, brown, steamed, weighed with bones",46.5,15.5,3,0,89,0,0,0,64,24,0.7
 2775,"Trout, rainbow, baked, flesh only, fillets weighed with bones and skin",61,20.7,5.3,0,131,0,0,0,60,16,0.35
 2776,"Trout, rainbow, flesh only, baked",70.1,23.8,6.1,0,150,0,0,0,69,19,0.4
 2777,"Trout, rainbow, flesh only, raw",76.1,19.9,5.3,0,127,0,0,0,60,21,0.28
